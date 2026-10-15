@@ -1,0 +1,3610 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Be Bodywise ClearJourney // Samsung Health One UI</title>
+  
+  <meta name="description" content="ClearJourney by Be Bodywise: Samsung Health One UI design system, reachability architecture, Daily Skin Diary, and multimodal AI analysis engine for 2% Salicylic Acid Face Wash." />
+  <meta name="theme-color" content="#000000" id="meta-theme" />
+  <link rel="icon" type="image/png" href="public/icon-192.png" />
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter for Samsung One UI Aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================= ONE UI & SAMSUNG HEALTH DESIGN SYSTEM ================= */
+    :root, [data-theme="dark"] {
+      --font-main: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace;
+
+      /* AMOLED Pure Dark Canvas */
+      --bg-canvas: #000000;
+      --bg-surface: #121418;
+      --bg-surface-elevated: #1A1D24;
+      --bg-surface-subtle: #242932;
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(34, 197, 94, 0.3);
+
+      /* Typography */
+      --text-primary: #FFFFFF;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+
+      /* Samsung Health Activity Accents */
+      --accent-green: #22C55E;        /* Outer Ring / Adherence */
+      --accent-green-glow: rgba(34, 197, 94, 0.25);
+      --accent-cyan: #06B6D4;         /* Middle Ring / Skin Balance */
+      --accent-cyan-glow: rgba(6, 182, 212, 0.25);
+      --accent-coral: #FB7185;        /* Inner Ring / 12-Wk Journey */
+      --accent-coral-glow: rgba(251, 113, 133, 0.25);
+      --accent-orange: #F97316;       /* Heart Orange / Purge Alert */
+      --accent-amber: #F59E0B;
+
+      /* Floating Dock & Modals */
+      --nav-dock-bg: rgba(18, 20, 24, 0.88);
+      --shutter-outer: #FFFFFF;
+      --shutter-inner: #FFFFFF;
+      --pill-active-bg: #242932;
+      --pill-active-text: #FFFFFF;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Crisp Medical Light (Daylight Clean Mode) */
+    [data-theme="light"] {
+      --font-main: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace;
+
+      /* Soft Ice Gray & Pure White Porcelain */
+      --bg-canvas: #F2F4F8;
+      --bg-surface: #FFFFFF;
+      --bg-surface-elevated: #F8FAFC;
+      --bg-surface-subtle: #E2E8F0;
+      --border-soft: rgba(0, 0, 0, 0.06);
+      --border-accent: rgba(22, 163, 74, 0.3);
+
+      /* Typography */
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+
+      /* Samsung Health Accents in Light Mode */
+      --accent-green: #16A34A;
+      --accent-green-glow: rgba(22, 163, 74, 0.18);
+      --accent-cyan: #0284C7;
+      --accent-cyan-glow: rgba(2, 132, 199, 0.18);
+      --accent-coral: #E11D48;
+      --accent-coral-glow: rgba(225, 29, 72, 0.18);
+      --accent-orange: #EA580C;
+      --accent-amber: #D97706;
+
+      --nav-dock-bg: rgba(255, 255, 255, 0.92);
+      --shutter-outer: #0F172A;
+      --shutter-inner: #0F172A;
+      --pill-active-bg: #0F172A;
+      --pill-active-text: #FFFFFF;
+      --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #080A0D;
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      margin: 0;
+    }
+
+    /* Reachability Mobile Frame Container (Max-W-MD / 100dvh) */
+    .oneui-device-frame {
+      width: 100%;
+      max-width: 440px;
+      height: 100dvh;
+      background: var(--bg-canvas);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      transition: background 0.3s ease;
+    }
+
+    @media (min-width: 768px) {
+      .oneui-device-frame {
+        height: 94vh;
+        max-height: 880px;
+        border-radius: 44px;
+        border: 4px solid #1E232E;
+      }
+    }
+
+    /* Custom Scrollbar for One UI Smooth Scroll */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-surface-subtle);
+      border-radius: 10px;
+    }
+
+    /* One UI Reachability Header Area (Top 30% Viewing Area) */
+    .reachability-header {
+      padding: 16px 20px 12px 20px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 20;
+      background: var(--bg-canvas);
+      transition: all 0.25s ease;
+    }
+
+    .top-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: var(--bg-surface-elevated);
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      border: 1px solid var(--border-soft);
+    }
+
+    .brand-pill-badge {
+      background: var(--accent-green);
+      color: #000;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 9999px;
+    }
+
+    .top-action-toggles {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Universal Language Pill Switcher */
+    .terminology-switcher {
+      display: inline-flex;
+      background: var(--bg-surface-elevated);
+      padding: 3px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-soft);
+    }
+
+    .term-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 5px 9px;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.03em;
+    }
+
+    .term-btn.active {
+      background: var(--accent-cyan);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px var(--accent-cyan-glow);
+    }
+
+    /* Test Simulation Demo Button */
+    .btn-demo-sim {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.16), rgba(6, 182, 212, 0.16));
+      border: 1px solid var(--accent-green);
+      color: var(--accent-green);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 9999px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-demo-sim:hover {
+      background: var(--accent-green);
+      color: #000000;
+      box-shadow: 0 2px 10px var(--accent-green-glow);
+    }
+    .btn-demo-sim:active {
+      transform: scale(0.94);
+    }
+
+    .theme-icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .theme-icon-btn:hover {
+      color: var(--text-primary);
+    }
+    .theme-icon-btn:active {
+      transform: scale(0.9);
+    }
+
+    /* Expansive Reachability Hero Titles */
+    .hero-view-title {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-view-subtitle {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+
+    /* Scrollable Thumb Zone Content */
+    .oneui-scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 18px 100px 18px; /* generous bottom clearance for floating dock */
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Pebble Cards (Samsung Health Generously Rounded Surfaces) */
+    .pebble-card {
+      background: var(--bg-surface);
+      border-radius: 28px;
+      padding: 18px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .card-header-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-chip {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      background: var(--bg-surface-elevated);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-soft);
+    }
+
+    .badge-chip.green {
+      background: var(--accent-green-glow);
+      color: var(--accent-green);
+      border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .badge-chip.cyan {
+      background: var(--accent-cyan-glow);
+      color: var(--accent-cyan);
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+
+    .badge-chip.coral {
+      background: var(--accent-coral-glow);
+      color: var(--accent-coral);
+      border-color: rgba(251, 113, 133, 0.4);
+    }
+
+    .badge-chip.amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-amber);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    /* ================= FIX 1 & B: SAMSUNG HEALTH ACTIVITY RING & CENTER TEXT ================= */
+    .activity-ring-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      padding: 8px 0 4px 0;
+    }
+
+    .rings-svg-wrapper {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring-bg {
+      fill: none;
+      stroke: var(--bg-surface-subtle);
+    }
+
+    .ring-bar {
+      fill: none;
+      stroke-linecap: round;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .ring-green { stroke: var(--accent-green); filter: drop-shadow(0 0 6px var(--accent-green-glow)); }
+    .ring-cyan  { stroke: var(--accent-cyan);  filter: drop-shadow(0 0 6px var(--accent-cyan-glow)); }
+    .ring-coral { stroke: var(--accent-coral); filter: drop-shadow(0 0 6px var(--accent-coral-glow)); }
+
+    /* Clean Center Text Zone: Strict isolation with min 82px safety diameter */
+    .rings-center-meta {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .rings-center-val {
+      font-size: 24px; /* text-2xl font-bold leading-none */
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .rings-center-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      color: #94A3B8; /* text-slate-400 */
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* 2-Step Check-In Flow Header Stepper */
+    .checkin-flow-stepper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      width: 100%;
+    }
+
+    .flow-step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-soft);
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .flow-step-pill.active {
+      background: var(--pill-active-bg);
+      border-color: var(--accent-cyan);
+      color: var(--text-primary);
+      box-shadow: 0 0 10px var(--accent-cyan-glow);
+    }
+
+    .flow-step-pill.completed {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+      background: rgba(34, 197, 94, 0.1);
+    }
+
+    .flow-step-num {
+      font-weight: 800;
+      font-size: 10px;
+    }
+
+    .flow-step-arrow {
+      color: var(--text-muted);
+      font-size: 11px;
+      user-select: none;
+    }
+
+    /* Context Strip displaying loaded biomarker data */
+    .lifestyle-context-strip {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-soft);
+      border-left: 3px solid var(--accent-cyan);
+      border-radius: 18px;
+      padding: 9px 14px;
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .btn-ctx-edit {
+      background: transparent;
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 9px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+    .btn-ctx-edit:hover {
+      background: var(--accent-cyan);
+      color: #FFFFFF;
+    }
+
+    /* Trio Metrics Legend Row */
+    .trio-legend-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      width: 100%;
+      margin-top: 14px;
+    }
+
+    .trio-stat-box {
+      background: var(--bg-surface-elevated);
+      border-radius: 18px;
+      padding: 10px 8px;
+      text-align: center;
+      border: 1px solid var(--border-soft);
+    }
+
+    .trio-stat-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .trio-stat-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .trio-stat-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Regimen Checklist Item (52px Minimum Tap Target) */
+    .regimen-item-pill {
+      min-height: 54px;
+      background: var(--bg-surface-elevated);
+      border-radius: 20px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border-soft);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .regimen-item-pill:active {
+      transform: scale(0.98);
+    }
+
+    .regimen-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .check-squircle {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      border: 2px solid var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: transparent;
+      transition: all 0.2s ease;
+    }
+
+    .check-squircle.done {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+      color: #000000;
+    }
+
+    .regimen-text-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .regimen-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .regimen-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .btn-timer-trigger {
+      background: var(--accent-green);
+      color: #000000;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 9999px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px var(--accent-green-glow);
+      transition: transform 0.15s ease;
+    }
+    .btn-timer-trigger:active {
+      transform: scale(0.92);
+    }
+
+    /* Diagnostic Glance Metrics Grid */
+    .metrics-glance-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .metric-sub-card {
+      background: var(--bg-surface-elevated);
+      border-radius: 20px;
+      padding: 12px;
+      border: 1px solid var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 84px;
+    }
+
+    .metric-title-small {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .metric-val-big {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 4px 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-bar-track {
+      width: 100%;
+      height: 5px;
+      background: var(--bg-surface-subtle);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .metric-bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Accordion Pebble Card */
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .accordion-chevron {
+      transition: transform 0.25s ease;
+      color: var(--text-secondary);
+    }
+
+    .accordion-chevron.expanded {
+      transform: rotate(180deg);
+    }
+
+    .accordion-body {
+      display: none;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-soft);
+      margin-top: 6px;
+    }
+
+    /* ================= FIX 1 & 2: CAMERA VIEWPORT & 3-ANGLE STEPPER ================= */
+    .angle-stepper-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .stepper-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-soft);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .stepper-pill.active {
+      background: var(--pill-active-bg);
+      border-color: var(--accent-cyan);
+      color: var(--text-primary);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
+
+    .stepper-pill.completed {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    .stepper-arrow {
+      color: var(--text-muted);
+      font-size: 11px;
+      user-select: none;
+    }
+
+    .camera-guideline-banner {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .camera-guideline-banner .guide-text {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+
+    .camera-viewport-card {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/4;
+      max-height: 380px;
+      border-radius: 32px;
+      background: #000000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.6);
+      border: 1px solid var(--border-soft);
+    }
+
+    .camera-viewport-card video,
+    .camera-viewport-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #camera-flash-overlay {
+      position: absolute;
+      inset: 0;
+      background: #ffffff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 100ms ease;
+      z-index: 40;
+      border-radius: 32px;
+    }
+
+    .btn-fallback-manual-upload {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-soft);
+      border-radius: 9999px;
+      padding: 9px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: all 0.2s ease;
+    }
+
+    .btn-fallback-manual-upload:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-cyan);
+    }
+
+    .camera-face-oval-guide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .camera-hud-top {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .camera-controls-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 10px;
+      background: var(--bg-surface);
+      border-radius: 28px;
+      border: 1px solid var(--border-soft);
+    }
+
+    /* 3 Explicit Upload Slots */
+    .angle-slot-card {
+      background: var(--bg-surface-elevated);
+      border-radius: 18px;
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border-soft);
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .angle-slot-card.filled {
+      border-color: var(--accent-green);
+      background: var(--accent-green-glow);
+    }
+
+    .angle-slot-card.active-target {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
+
+    .slot-preview-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--bg-surface-subtle);
+      border: 1px dashed var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: var(--text-secondary);
+    }
+
+    .slot-preview-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slot-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .slot-status {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .angle-slot-card.filled .slot-status {
+      color: var(--accent-green);
+    }
+
+    /* Samsung Hardware Shutter Button */
+    .samsung-hardware-shutter {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: 4px solid var(--shutter-outer);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: transparent;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .samsung-hardware-shutter:active {
+      transform: scale(0.88);
+    }
+
+    .samsung-shutter-core {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--shutter-inner);
+      transition: all 0.15s ease;
+    }
+
+    .samsung-hardware-shutter:active .samsung-shutter-core {
+      transform: scale(0.9);
+      opacity: 0.85;
+    }
+
+    .camera-action-icon-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .camera-action-icon-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* ================= DAILY SKIN DIARY MODULE ================= */
+    .diary-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .diary-field-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .diary-pill-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .diary-select-btn {
+      min-height: 44px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 8px 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.18s ease;
+    }
+
+    .diary-select-btn:active {
+      transform: scale(0.96);
+    }
+
+    .diary-select-btn.active {
+      background: var(--accent-green);
+      color: #000000;
+      border-color: var(--accent-green);
+      box-shadow: 0 4px 12px var(--accent-green-glow);
+      font-weight: 800;
+    }
+
+    .diary-multi-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .diary-chip-multi {
+      min-height: 42px;
+      padding: 8px 14px;
+      border-radius: 18px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-soft);
+      color: var(--text-secondary);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .diary-chip-multi.active {
+      background: var(--accent-coral);
+      color: #FFFFFF;
+      border-color: var(--accent-coral);
+      box-shadow: 0 4px 12px var(--accent-coral-glow);
+      font-weight: 700;
+    }
+
+    .btn-primary-action {
+      min-height: 52px;
+      border-radius: 24px;
+      background: var(--accent-green);
+      color: #000000;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px var(--accent-green-glow);
+      transition: transform 0.15s ease;
+      margin-top: 6px;
+    }
+
+    .btn-primary-action:active {
+      transform: scale(0.97);
+    }
+
+    /* ================= FLOATING ONE UI NAVIGATION BAR ================= */
+    .oneui-floating-dock {
+      position: absolute;
+      bottom: 16px;
+      left: 18px;
+      right: 18px;
+      height: 64px;
+      background: var(--nav-dock-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 9999px;
+      border: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      padding: 0 8px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+      z-index: 50;
+    }
+
+    .dock-nav-item {
+      background: transparent;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 6px 0;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .dock-nav-item svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2.2;
+      transition: transform 0.2s ease, stroke 0.2s ease;
+    }
+
+    .dock-nav-item span {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .dock-nav-item.active {
+      color: var(--accent-green);
+    }
+
+    .dock-nav-item.active svg {
+      stroke: var(--accent-green);
+      transform: translateY(-2px);
+    }
+
+    /* ================= 60-SECOND CIRCULAR TIMER MODAL ================= */
+    .timer-backdrop-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 34px 24px 28px 24px;
+    }
+
+    .timer-circle-wrap {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      margin: auto 0;
+    }
+
+    .timer-svg-circle {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .timer-track {
+      fill: none;
+      stroke: var(--bg-surface-subtle);
+      stroke-width: 12;
+    }
+
+    .timer-progress {
+      fill: none;
+      stroke: var(--accent-green);
+      stroke-width: 12;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 10px var(--accent-green-glow));
+      transition: stroke-dashoffset 0.15s linear;
+    }
+
+    .timer-center-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .timer-huge-nums {
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      font-family: var(--font-mono);
+    }
+
+    .timer-status-phase {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 8px;
+    }
+
+    /* ================= INSTANT DIAGNOSTIC LOADING MODAL ================= */
+    .loading-diagnostic-modal {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-canvas);
+      z-index: 110;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .samsung-spinner-ring {
+      width: 80px;
+      height: 80px;
+      border: 5px solid var(--bg-surface-subtle);
+      border-top-color: var(--accent-cyan);
+      border-radius: 50%;
+      animation: spinRing 0.9s infinite cubic-bezier(0.55, 0.15, 0.45, 0.85);
+      margin-bottom: 24px;
+    }
+
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ================= CONTEXTUAL TAB INFO MODAL (i) ================= */
+    .tab-info-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      background: var(--bg-surface-elevated);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .tab-info-btn:hover {
+      color: #FFFFFF;
+      background: var(--bg-surface-subtle);
+      border-color: var(--accent-green);
+      transform: scale(1.06);
+    }
+    .tab-info-btn:active {
+      transform: scale(0.92);
+    }
+    [data-theme="light"] .tab-info-btn {
+      border: 1px solid #CBD5E1;
+      color: #0F172A;
+      background: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    [data-theme="light"] .tab-info-btn:hover {
+      color: #0F172A;
+      background: #F1F5F9;
+      border-color: #64748B;
+    }
+
+    .info-modal-sheet {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 120;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px;
+      transition: opacity 0.25s ease;
+    }
+
+    .info-modal-card {
+      background: var(--bg-surface);
+      border-radius: 32px;
+      padding: 22px 20px 20px 20px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: modalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalSlideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .info-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .info-icon-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-green-glow);
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .info-modal-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .info-purpose-box {
+      background: var(--bg-surface-elevated);
+      border-radius: 18px;
+      padding: 12px 14px;
+      border: 1px solid var(--border-soft);
+    }
+
+    .info-purpose-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+      display: block;
+    }
+
+    .info-purpose-text {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .info-section-heading {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    .info-features-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .info-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--bg-surface-elevated);
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+    }
+
+    .info-feature-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .info-feature-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .info-feature-text strong {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    /* ================= FIX 2: ANALYSIS RESULTS FULL MODAL ================= */
+    .results-modal-sheet {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-canvas);
+      z-index: 105;
+      display: none;
+      flex-direction: column;
+      padding: 18px;
+      overflow-y: auto;
+      gap: 14px;
+    }
+
+    /* Notification Toast (One UI Capsule) */
+    .capsule-toast {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 1px solid var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 150;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    .capsule-toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= ONE UI MOBILE FRAME ================= -->
+  <div class="oneui-device-frame" id="app-frame">
+    
+    <!-- TOP NOTIFICATION CAPSULE TOAST -->
+    <div class="capsule-toast" id="oneui-toast">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="toast-text">Biomarkers Synchronized</span>
+    </div>
+
+    <!-- ONE UI REACHABILITY HEADER (TOP VIEWING AREA) -->
+    <header class="reachability-header" id="reachability-hdr">
+      <div class="top-meta-row">
+        <div class="brand-pill">
+          <span class="brand-pill-badge">2% BHA</span>
+          <span>BE BODYWISE</span>
+        </div>
+
+        <!-- Top-Right Header Controls: Language Toggle, Contextual (i) Info Button, Theme Toggle -->
+        <div class="top-action-toggles">
+          <!-- Universal Terminology Switcher -->
+          <div class="terminology-switcher" title="Toggle Clinical vs Plain Terminology">
+            <button class="term-btn active" id="btn-lang-clinical" onclick="switchLanguage('clinical')">CLINICAL</button>
+            <button class="term-btn" id="btn-lang-plain" onclick="switchLanguage('plain')">PLAIN</button>
+          </div>
+
+          <!-- Interactive Contextual (i) Info Button -->
+          <button class="tab-info-btn w-8 h-8 rounded-full border border-slate-700/60 dark:border-slate-700 light:border-slate-300 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/50 transition-all"
+                  onclick="openTabInfoModal()" 
+                  aria-label="Tab Guide & Help" 
+                  title="Tab Guide & Help" 
+                  id="btn-tab-info">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+          </button>
+
+          <!-- AMOLED Dark / Clean Light Toggle -->
+          <button class="theme-icon-btn" onclick="toggleTheme()" title="Toggle AMOLED Dark / Medical Light">
+            <svg id="theme-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Greeting, Subtitle & Instant Demo Simulation Button -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 8px;">
+        <div style="flex: 1; min-width: 0;">
+          <h1 class="hero-view-title" id="hero-title">Good evening, Aanya</h1>
+          <div class="hero-view-subtitle" id="hero-subtitle">
+            <div class="live-dot"></div>
+            <span id="hero-subtext">Day 18 of 84 • Cellular Turnover Horizon</span>
+          </div>
+        </div>
+        <!-- Instant Test Simulation Demo Button -->
+        <button class="btn-demo-sim" onclick="runInstantDemoSimulation()" title="Instantly test entire correlation analysis with preloaded biometrics" id="btn-demo-sim" style="flex-shrink: 0; align-self: flex-start; margin-top: 2px;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>[ Test Demo ]</span>
+        </button>
+      </div>
+    </header>
+
+
+    <!-- SCROLLABLE THUMB-FRIENDLY VIEWPORT -->
+    <main class="oneui-scroll-content" id="scroll-main-content">
+
+      <!-- ================= 01. HOME / DASHBOARD TAB ================= -->
+      <section id="tab-home" style="display: flex; flex-direction: column; gap: 14px;">
+        
+        <!-- Samsung Health Concentric Trio Activity Rings -->
+        <div class="pebble-card" style="align-items: center;">
+          <div class="card-header-line" style="width: 100%;">
+            <span class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              CLEARSIN TRIO RINGS
+            </span>
+            <span class="badge-chip green" id="rings-adherence-badge">94% OPTIMAL</span>
+          </div>
+
+          <!-- FIX 1 & Bug Fix B: Non-overlapping Activity Rings with isolated center text -->
+          <div class="activity-ring-container">
+            <div class="rings-svg-wrapper">
+              <svg class="w-full h-full transform -rotate-90" width="200" height="200" viewBox="0 0 200 200">
+                <!-- Outer: BHA Routine (Green) (r=82, stroke-width=12, Circ=515.22) -->
+                <circle cx="100" cy="100" r="82" stroke-width="12" class="ring-bg" fill="none" />
+                <circle cx="100" cy="100" r="82" stroke-width="12" stroke-linecap="round" class="ring-bar ring-green" id="svg-ring-bha"
+                        stroke-dasharray="515" stroke-dashoffset="51.5" fill="none" />
+                
+                <!-- Middle: Diary / Hydration (Cyan) (r=64, stroke-width=12, Circ=402.12) -->
+                <circle cx="100" cy="100" r="64" stroke-width="12" class="ring-bg" fill="none" />
+                <circle cx="100" cy="100" r="64" stroke-width="12" stroke-linecap="round" class="ring-bar ring-cyan" id="svg-ring-balance"
+                        stroke-dasharray="402" stroke-dashoffset="60.3" fill="none" />
+                
+                <!-- Inner: Journey Progress (Coral) (r=46, stroke-width=10, Circ=289.02) -->
+                <circle cx="100" cy="100" r="46" stroke-width="10" class="ring-bg" fill="none" />
+                <circle cx="100" cy="100" r="46" stroke-width="10" stroke-linecap="round" class="ring-bar ring-coral" id="svg-ring-journey"
+                        stroke-dasharray="289" stroke-dashoffset="227.1" fill="none" />
+              </svg>
+
+              <!-- Rings Inner Center Stats: Isolated Flex Container, min 82px safety diameter -->
+              <div class="rings-center-meta">
+                <span class="rings-center-val" id="rings-center-num">Day 18</span>
+                <span class="rings-center-lbl" id="rings-center-text">of 84 Days</span>
+              </div>
+            </div>
+
+            <!-- Legend 3-column Grid -->
+            <div class="trio-legend-row">
+              <div class="trio-stat-box">
+                <span class="trio-stat-dot" style="background: var(--accent-green);"></span>
+                <div class="trio-stat-val" id="stat-bha-pct">100%</div>
+                <div class="trio-stat-lbl">BHA ADHERENCE</div>
+              </div>
+              <div class="trio-stat-box">
+                <span class="trio-stat-dot" style="background: var(--accent-cyan);"></span>
+                <div class="trio-stat-val" id="stat-balance-pct">85%</div>
+                <div class="trio-stat-lbl">LIFESTYLE BAL</div>
+              </div>
+              <div class="trio-stat-box">
+                <span class="trio-stat-dot" style="background: var(--accent-coral);"></span>
+                <div class="trio-stat-val" id="stat-journey-pct">21.4%</div>
+                <div class="trio-stat-lbl">12-WK ROADMAP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Daily Check-In CTA Card (Diary First Workflow) -->
+        <div class="pebble-card" style="border-left: 4px solid var(--accent-green); background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-elevated));">
+          <div class="card-header-line">
+            <span class="card-title" style="color: var(--accent-green);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              DAILY CHECK-IN (DIARY FIRST)
+            </span>
+            <span class="badge-chip green">STEP 1 ➔ STEP 2</span>
+          </div>
+          <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.45;">
+            Step 1 logs your 20-second lifestyle snapshot (sweat, sun, sleep, barrier sensations). Step 2 guides your 3-profile camera capture with loaded biomarker context.
+          </div>
+          <button class="btn-primary-action" onclick="startCheckInFlow()" style="margin-top: 2px;" id="btn-start-checkin">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            <span>[ Start Check-In: Diary ➔ Camera Scan → ]</span>
+          </button>
+        </div>
+
+        <!-- Daily Regimen Card (Checklist + 60s Lather Timer Launch) -->
+        <div class="pebble-card">
+          <div class="card-header-line">
+            <span class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/></svg>
+              TODAY'S REGIMEN
+            </span>
+            <span class="badge-chip cyan" id="regimen-freq-badge">1X DAILY (PM)</span>
+          </div>
+
+          <!-- AM Cleanse Checklist Pill -->
+          <div class="regimen-item-pill" onclick="toggleAMCheck()">
+            <div class="regimen-left">
+              <div class="check-squircle done" id="check-am-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="regimen-text-block">
+                <span class="regimen-title" id="am-task-title">AM Gentle Cleanse + SPF 50+</span>
+                <span class="regimen-sub" id="am-task-sub">Broad-spectrum UV shield applied</span>
+              </div>
+            </div>
+            <span class="badge-chip green" id="am-status-badge">DONE</span>
+          </div>
+
+          <!-- PM 2% BHA Wash Checklist Pill with Timer -->
+          <div class="regimen-item-pill">
+            <div class="regimen-left" onclick="togglePMCheck()" style="cursor: pointer; flex: 1;">
+              <div class="check-squircle" id="check-pm-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="regimen-text-block">
+                <span class="regimen-title" id="pm-task-title">PM 2% Salicylic Acid Cleanser</span>
+                <span class="regimen-sub" id="pm-task-sub">60-second contact lather</span>
+              </div>
+            </div>
+            <button class="btn-timer-trigger" onclick="openTimerModal()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>60s TIMER</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Latest AI Scan & Dermal Metrics Card -->
+        <div class="pebble-card">
+          <div class="card-header-line">
+            <span class="card-title" id="scan-summary-title">LATEST SCAN DIAGNOSTIC</span>
+            <span class="badge-chip amber" id="scan-phase-pill">PURGING STAGE</span>
+          </div>
+
+          <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.45;" id="scan-summary-body">
+            Accelerated follicular desquamation active. Sub-surface microcomedones actively purging along normal pathways.
+          </div>
+
+          <!-- 2x2 Clean Metric Sub-Cards -->
+          <div class="metrics-glance-grid">
+            <div class="metric-sub-card">
+              <span class="metric-title-small" id="lbl-metric-lesions">COMEDONAL OCCLUSIONS</span>
+              <div class="metric-val-big" id="val-metric-lesions">[06 - 09 spots]</div>
+              <div class="metric-bar-track">
+                <div class="metric-bar-fill" id="bar-metric-lesions" style="width: 55%; background: var(--accent-orange);"></div>
+              </div>
+            </div>
+
+            <div class="metric-sub-card">
+              <span class="metric-title-small" id="lbl-metric-erythema">ERYTHEMA INDEX</span>
+              <div class="metric-val-big" id="val-metric-erythema">3.4 / 10</div>
+              <div class="metric-bar-track">
+                <div class="metric-bar-fill" id="bar-metric-erythema" style="width: 34%; background: var(--accent-green);"></div>
+              </div>
+            </div>
+
+            <div class="metric-sub-card">
+              <span class="metric-title-small" id="lbl-metric-sebum">SEBUM LIPID FRACTION</span>
+              <div class="metric-val-big" id="val-metric-sebum">4.4 / 10</div>
+              <div class="metric-bar-track">
+                <div class="metric-bar-fill" id="bar-metric-sebum" style="width: 44%; background: var(--accent-cyan);"></div>
+              </div>
+            </div>
+
+            <div class="metric-sub-card">
+              <span class="metric-title-small" id="lbl-metric-texture">TEXTURE REFINEMENT</span>
+              <div class="metric-val-big" id="val-metric-texture">7.4 / 10</div>
+              <div class="metric-bar-track">
+                <div class="metric-bar-fill" id="bar-metric-texture" style="width: 74%; background: var(--accent-green);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lifestyle & Diary AI Cross-Correlation Card -->
+        <div class="pebble-card" style="border-left: 4px solid var(--accent-cyan);">
+          <div class="card-header-line">
+            <span class="card-title" style="color: var(--accent-cyan);" id="diary-card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              LIFESTYLE & DIARY CORRELATION
+            </span>
+            <span class="badge-chip cyan">7-DAY SYNC</span>
+          </div>
+
+          <div style="font-size: 13px; color: var(--text-primary); line-height: 1.45;" id="lifestyle-insight-text">
+            High metabolic perspiration combined with sebaceous activity is accelerating superficial pore clearing without barrier disruption.
+          </div>
+
+          <div style="font-size: 11.5px; color: var(--text-secondary); background: var(--bg-surface-elevated); padding: 8px 12px; border-radius: 14px;" id="lifestyle-directive-box">
+            Action: Rinse face with cool water immediately post-workout before evening 2% BHA cleanse.
+          </div>
+        </div>
+
+        <!-- "Why It Smells Medicated" Expandable Card -->
+        <div class="pebble-card">
+          <div class="accordion-header" onclick="toggleAccordion('scent-accord')">
+            <span class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-coral)" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              WHY IT SMELLS MEDICATED
+            </span>
+            <svg class="accordion-chevron" id="scent-accord-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="accordion-body" id="scent-accord-body">
+            Formulated with 0% synthetic fragrances and 0% masking perfumes. Synthetic aromatic terpenes can aggravate acne lesions and induce contact sensitization in compromised skin barriers. The distinct aroma reflects pure, unmasked 2% Salicylic Acid.
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ================= 02. AI SCAN & CAMERA TAB ================= -->
+      <section id="tab-scan" style="display: none; flex-direction: column; gap: 14px;">
+        
+        <!-- 2-Step Check-In Flow Indicator (Step 2) -->
+        <div class="checkin-flow-stepper">
+          <div class="flow-step-pill completed" onclick="switchDockTab('diary')" style="cursor: pointer;" title="Review or edit Step 1 Diary">
+            <span class="flow-step-num">✓</span> 1. LIFESTYLE SNAPSHOT
+          </div>
+          <span class="flow-step-arrow">➔</span>
+          <div class="flow-step-pill active">
+            <span class="flow-step-num">2</span> 2. CAMERA SCAN (ACTIVE)
+          </div>
+        </div>
+
+        <!-- Loaded Lifestyle Biomarker Context Strip -->
+        <div class="lifestyle-context-strip" id="scan-context-summary">
+          <div style="display: flex; align-items: center; gap: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span style="font-size: 11px;">Context Loaded: <strong id="ctx-summary-text" style="color: var(--text-primary);">Sweat: None • SPF: Applied Once • Barrier: Calm</strong></span>
+          </div>
+          <button class="btn-ctx-edit" onclick="switchDockTab('diary')" title="Edit lifestyle variables">Edit Diary</button>
+        </div>
+
+        <!-- UI Visual Stepper (3-step angle indicator) -->
+        <div class="angle-stepper-container" id="angle-stepper-row">
+          <button type="button" class="stepper-pill active" id="pill-step-FRONT" onclick="setManualAngleStep(0)">
+            <span class="stepper-dot">●</span> FRONT
+          </button>
+          <span class="stepper-arrow">➔</span>
+          <button type="button" class="stepper-pill" id="pill-step-LEFT" onclick="setManualAngleStep(1)">
+            <span class="stepper-dot">○</span> LEFT 45°
+          </button>
+          <span class="stepper-arrow">➔</span>
+          <button type="button" class="stepper-pill" id="pill-step-RIGHT" onclick="setManualAngleStep(2)">
+            <span class="stepper-dot">○</span> RIGHT 45°
+          </button>
+        </div>
+
+        <!-- Prominent On-Screen Guideline Banner -->
+        <div class="camera-guideline-banner" id="camera-guideline-banner">
+          <span class="badge-chip cyan" id="guideline-step-badge">STEP 1 OF 3</span>
+          <span class="guide-text" id="guideline-text">Position face directly forward in the frame</span>
+        </div>
+
+        <!-- Camera Viewport Card with Continuous Stream -->
+        <div class="camera-viewport-card" id="camera-card">
+          <!-- Continuous Video Stream: Stays active across all 3 angle captures -->
+          <video id="live-webcam-feed" autoplay playsinline muted style="display: none;"></video>
+          <!-- Sensor Fallback Preview (only visible if webcam is offline) -->
+          <img id="camera-frozen-preview" src="" alt="Scan Profile Frame" style="display: block;" />
+
+          <!-- Shutter Flash Feedback -->
+          <div id="camera-flash-overlay"></div>
+
+          <!-- Delicate One UI Hairline Oval Guide -->
+          <svg class="camera-face-oval-guide" viewBox="0 0 300 400" id="camera-oval-guide">
+            <ellipse cx="150" cy="180" rx="90" ry="125" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="3 4" fill="none"></ellipse>
+            <path d="M 50 70 L 50 50 L 70 50" stroke="var(--accent-green)" stroke-width="2.5" fill="none"></path>
+            <path d="M 250 70 L 250 50 L 230 50" stroke="var(--accent-green)" stroke-width="2.5" fill="none"></path>
+            <path d="M 50 290 L 50 310 L 70 310" stroke="var(--accent-green)" stroke-width="2.5" fill="none"></path>
+            <path d="M 250 290 L 250 310 L 230 310" stroke="var(--accent-green)" stroke-width="2.5" fill="none"></path>
+          </svg>
+
+          <!-- Top HUD Badges -->
+          <div class="camera-hud-top">
+            <span class="badge-chip green" id="hud-lighting-badge">LIGHTING: OPTIMAL</span>
+            <span class="badge-chip cyan" id="hud-angle-badge">1/3: FRONT</span>
+          </div>
+
+          <canvas id="shutter-canvas" style="display: none;"></canvas>
+        </div>
+
+        <!-- Explicit Manual Thumbnail Buttons (Tap any angle to re-capture without restarting) -->
+        <div class="pebble-card" style="padding: 14px 16px;">
+          <div class="card-header-line" style="margin-bottom: 8px;">
+            <span class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              3 PROFILE SLOTS & RETAKE
+            </span>
+            <span class="badge-chip cyan" id="slots-count-badge">0 / 3 READY</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+            <!-- Slot 1: Front -->
+            <div class="angle-slot-card active-target" id="slot-card-front" onclick="setManualAngleStep(0)" style="cursor: pointer;" title="Tap to select/retake FRONT profile">
+              <div class="slot-preview-box" id="slot-preview-front">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              </div>
+              <span class="slot-label">1. FRONT</span>
+              <span class="slot-status" id="slot-status-front">ACTIVE</span>
+            </div>
+
+            <!-- Slot 2: Left 45° -->
+            <div class="angle-slot-card" id="slot-card-left" onclick="setManualAngleStep(1)" style="cursor: pointer;" title="Tap to select/retake LEFT 45° profile">
+              <div class="slot-preview-box" id="slot-preview-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              </div>
+              <span class="slot-label">2. LEFT 45°</span>
+              <span class="slot-status" id="slot-status-left">EMPTY</span>
+            </div>
+
+            <!-- Slot 3: Right 45° -->
+            <div class="angle-slot-card" id="slot-card-right" onclick="setManualAngleStep(2)" style="cursor: pointer;" title="Tap to select/retake RIGHT 45° profile">
+              <div class="slot-preview-box" id="slot-preview-right">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              </div>
+              <span class="slot-label">3. RIGHT 45°</span>
+              <span class="slot-status" id="slot-status-right">EMPTY</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Samsung Hardware Shutter Deck -->
+        <div class="camera-controls-bottom">
+          <!-- Direct File Pick for current active slot -->
+          <label style="cursor: pointer;" title="Upload photo to active angle slot">
+            <input type="file" accept="image/*" style="display: none;" onchange="handleActiveFilePick(event)" />
+            <div class="camera-action-icon-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+          </label>
+
+          <!-- Hardware Shutter Button -->
+          <div class="samsung-hardware-shutter" onclick="triggerHardwareSnap()" title="Snap Profile Photo">
+            <div class="samsung-shutter-core"></div>
+          </div>
+
+          <!-- Toggle Live Camera Power -->
+          <div class="camera-action-icon-btn" onclick="toggleCameraStream()" title="Toggle Live Webcam">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+        </div>
+
+        <!-- Emergency Fallback: Multi-File Input Button -->
+        <div style="display: flex; justify-content: center;">
+          <label class="btn-fallback-manual-upload" title="Fallback multi-file upload">
+            <input type="file" id="emergency-file-input" multiple accept="image/*" style="display: none;" onchange="handleManualMultiUpload(event)" />
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Upload 3 Photos Manually</span>
+          </label>
+        </div>
+
+        <!-- Test Scan Trigger Quick Pebble -->
+        <div class="pebble-card" style="padding: 14px 18px; flex-direction: row; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 13.5px; font-weight: 700;">Offline Deterministic Engine</div>
+            <div style="font-size: 11px; color: var(--text-secondary);">Fill 3 slots & test diagnosis offline</div>
+          </div>
+          <button class="btn-timer-trigger" onclick="runInstantDemoScan()" style="padding: 6px 12px; font-size: 11px;">
+            RUN TEST SCAN
+          </button>
+        </div>
+
+      </section>
+
+
+      <!-- ================= 03. DAILY SKIN DIARY TAB (STEP 1: DIARY FIRST) ================= -->
+      <section id="tab-diary" style="display: none; flex-direction: column; gap: 14px;">
+        
+        <!-- 2-Step Check-In Flow Indicator (Step 1) -->
+        <div class="checkin-flow-stepper">
+          <div class="flow-step-pill active">
+            <span class="flow-step-num">●</span> 1. LIFESTYLE SNAPSHOT
+          </div>
+          <span class="flow-step-arrow">➔</span>
+          <div class="flow-step-pill">
+            <span class="flow-step-num">○</span> 2. CAMERA SCAN
+          </div>
+        </div>
+
+        <div class="pebble-card">
+          <div class="card-header-line">
+            <span class="card-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              STEP 1: 20-SECOND LIFESTYLE SNAPSHOT
+            </span>
+            <span class="badge-chip green">DIARY FIRST</span>
+          </div>
+          <div style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.4;">
+            Log your daily metabolic and environmental biomarkers before camera scanning. Variables are loaded into memory for cross-correlation analysis.
+          </div>
+        </div>
+
+        <!-- Field 1: Workout / Sweat -->
+        <div class="pebble-card">
+          <div class="diary-field-group">
+            <span class="diary-field-title">01. Workout / Sweat</span>
+            <div class="diary-pill-selector">
+              <button class="diary-select-btn active" id="btn-work-none" onclick="setDiaryValue('workout_level', 'None')">None</button>
+              <button class="diary-select-btn" id="btn-work-mod" onclick="setDiaryValue('workout_level', 'Moderate')">Moderate</button>
+              <button class="diary-select-btn" id="btn-work-heavy" onclick="setDiaryValue('workout_level', 'Heavy Perspiration')">Heavy Perspiration</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Field 2: Sun / UV Exposure -->
+        <div class="pebble-card">
+          <div class="diary-field-group">
+            <span class="diary-field-title">02. Sun / UV Exposure</span>
+            <div class="diary-pill-selector">
+              <button class="diary-select-btn active" id="btn-sun-min" onclick="setDiaryValue('sun_exposure', '<15m')">&lt;15m</button>
+              <button class="diary-select-btn" id="btn-sun-mod" onclick="setDiaryValue('sun_exposure', '15-60m')">15-60m</button>
+              <button class="diary-select-btn" id="btn-sun-pro" onclick="setDiaryValue('sun_exposure', 'Prolonged UV')">Prolonged UV</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Field 3: SPF Routine -->
+        <div class="pebble-card">
+          <div class="diary-field-group">
+            <span class="diary-field-title">03. SPF Routine</span>
+            <div class="diary-pill-selector">
+              <button class="diary-select-btn" id="btn-spf-none" onclick="setDiaryValue('spf_compliance', 'No SPF')">No SPF</button>
+              <button class="diary-select-btn active" id="btn-spf-once" onclick="setDiaryValue('spf_compliance', 'Applied Once')">Applied Once</button>
+              <button class="diary-select-btn" id="btn-spf-reapply" onclick="setDiaryValue('spf_compliance', 'Reapplied 2x+')">Reapplied 2x+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Field 4 & 5: Water Hydration and Sleep in 2-Column Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="pebble-card">
+            <div class="diary-field-group">
+              <span class="diary-field-title">04. Water Hydration</span>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <button class="diary-select-btn" id="btn-h2o-low" onclick="setDiaryValue('water_intake', '<1L')">&lt;1L</button>
+                <button class="diary-select-btn active" id="btn-h2o-med" onclick="setDiaryValue('water_intake', '1-2L')">1-2L</button>
+                <button class="diary-select-btn" id="btn-h2o-high" onclick="setDiaryValue('water_intake', '2L+')">2L+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pebble-card">
+            <div class="diary-field-group">
+              <span class="diary-field-title">05. Sleep</span>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <button class="diary-select-btn" id="btn-sleep-low" onclick="setDiaryValue('sleep_duration', '<6 hrs')">&lt;6 hrs</button>
+                <button class="diary-select-btn active" id="btn-sleep-norm" onclick="setDiaryValue('sleep_duration', '6-8 hrs')">6-8 hrs</button>
+                <button class="diary-select-btn" id="btn-sleep-high" onclick="setDiaryValue('sleep_duration', '8+ hrs')">8+ hrs</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Field 6: Barrier Symptoms (Multi-select) -->
+        <div class="pebble-card">
+          <div class="diary-field-group">
+            <span class="diary-field-title">06. Barrier Symptoms</span>
+            <div class="diary-multi-chips-wrap">
+              <button class="diary-chip-multi active" id="chip-barr-calm" onclick="toggleBarrierChip('Calm')">Calm</button>
+              <button class="diary-chip-multi" id="chip-barr-tight" onclick="toggleBarrierChip('Tightness')">Tightness</button>
+              <button class="diary-chip-multi" id="chip-barr-sting" onclick="toggleBarrierChip('Stinging')">Stinging</button>
+              <button class="diary-chip-multi" id="chip-barr-peel" onclick="toggleBarrierChip('Peeling')">Peeling</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confirm Diary & Proceed to Camera Scan Primary Action Button -->
+        <button class="btn-primary-action" id="btn-confirm-diary" onclick="confirmDiaryAndProceedToCamera()">
+          <span>[ Confirm Diary & Proceed to Camera Scan → ]</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+
+      </section>
+
+
+      <!-- ================= 04. SCIENCE LAB TAB ================= -->
+      <section id="tab-science" style="display: none; flex-direction: column; gap: 14px;">
+        
+        <!-- Science Card 1: Active Agent -->
+        <div class="pebble-card">
+          <div class="card-header-line">
+            <span class="card-title" id="sci-title-agent">01. THE ACTIVE AGENT: 2% SALICYLIC ACID</span>
+            <span class="badge-chip green">BHA</span>
+          </div>
+          <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;" id="sci-body-agent"></div>
+        </div>
+
+        <!-- Science Card 2: Sensory Profile -->
+        <div class="pebble-card">
+          <div class="card-header-line">
+            <span class="card-title" id="sci-title-scent">02. SENSORY & AROMA PROFILE</span>
+            <span class="badge-chip coral">0% PERFUMES</span>
+          </div>
+          <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;" id="sci-body-scent"></div>
+        </div>
+
+        <!-- Science Card 3: Purge vs Irritation -->
+        <div class="pebble-card">
+          <div class="card-header-line">
+            <span class="card-title" id="sci-title-purge">03. PURGE VS IRRITATION PHENOMENON</span>
+            <span class="badge-chip amber">DIFFERENTIAL</span>
+          </div>
+          <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;" id="sci-body-purge"></div>
+        </div>
+
+        <!-- Science Card 4: 60-Second Rule -->
+        <div class="pebble-card">
+          <div class="card-header-line">
+            <span class="card-title" id="sci-title-timer">04. OPTIMAL CONTACT TIME (60-SECOND RULE)</span>
+            <span class="badge-chip cyan">LIPID PARTITIONING</span>
+          </div>
+          <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;" id="sci-body-timer"></div>
+        </div>
+
+        <!-- Active Compatibility Matrix -->
+        <div class="pebble-card">
+          <div class="card-header-line">
+            <span class="card-title">COCKTAIL COMPATIBILITY MATRIX</span>
+            <span class="badge-chip green">SAFETY TESTED</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <button class="diary-select-btn active" id="btn-clash-bp" onclick="setConflictActive('BP')">BENZOYL PEROXIDE</button>
+            <button class="diary-select-btn" id="btn-clash-ret" onclick="setConflictActive('RET')">RETINOIDS</button>
+          </div>
+          <div id="clash-explanation-box" style="font-size: 12.5px; color: var(--text-secondary); background: var(--bg-surface-elevated); padding: 12px; border-radius: 18px; line-height: 1.45;"></div>
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- ================= FLOATING ONE UI NAVIGATION BAR ================= -->
+    <nav class="oneui-floating-dock">
+      <button class="dock-nav-item active" id="dock-btn-home" onclick="switchDockTab('home')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </button>
+
+      <button class="dock-nav-item" id="dock-btn-scan" onclick="switchDockTab('scan')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <span>AI Scan</span>
+      </button>
+
+      <button class="dock-nav-item" id="dock-btn-diary" onclick="switchDockTab('diary')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>Diary</span>
+      </button>
+
+      <button class="dock-nav-item" id="dock-btn-science" onclick="switchDockTab('science')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg>
+        <span>Science</span>
+      </button>
+    </nav>
+
+
+    <!-- ================= 60-SECOND CIRCULAR TIMER MODAL ================= -->
+    <div class="timer-backdrop-modal" id="timer-modal">
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <span class="card-title" style="color: #FFF;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          SAMSUNG HEALTH TIMER
+        </span>
+        <button class="theme-icon-btn" onclick="closeTimerModal()" style="color: #FFF;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Large Circular Timer -->
+      <div class="timer-circle-wrap">
+        <svg class="timer-svg-circle" viewBox="0 0 220 220">
+          <circle class="timer-track" cx="110" cy="110" r="95"></circle>
+          <circle class="timer-progress" id="timer-bar-svg" cx="110" cy="110" r="95"
+                  stroke-dasharray="596.9" stroke-dashoffset="0"></circle>
+        </svg>
+        <div class="timer-center-content">
+          <div class="timer-huge-nums" id="timer-clock-display">60</div>
+          <div class="timer-status-phase" id="timer-instruction-text">GENTLE LATHER</div>
+        </div>
+      </div>
+
+      <div style="font-size: 13px; color: #94A3B8; text-align: center; max-width: 280px;" id="timer-sub-instruction">
+        Disperse 2% BHA across damp skin. Concentrate on dense sebaceous ostia (nose, forehead, chin).
+      </div>
+
+      <div style="display: flex; gap: 12px; width: 100%; max-width: 300px;">
+        <button class="btn-primary-action" id="timer-toggle-btn" onclick="toggleTimerState()" style="flex: 1;">
+          PAUSE
+        </button>
+        <button class="btn-timer-trigger" onclick="resetTimer()" style="background: var(--bg-surface-elevated); color: #FFF; border: 1px solid var(--border-soft); padding: 12px 18px;">
+          RESET
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ================= INSTANT DIAGNOSTIC LOADING MODAL ================= -->
+    <div class="loading-diagnostic-modal" id="loading-modal">
+      <div class="samsung-spinner-ring"></div>
+      <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 6px; color: var(--text-primary);">Analyzing Facial Biometrics...</h3>
+      <p style="font-size: 12.5px; color: var(--text-secondary); max-width: 260px;" id="loading-step-text">
+        Cross-correlating 3 facial scan profiles with your 7-day Daily Diary logs.
+      </p>
+    </div>
+
+
+    <!-- ================= CONTEXTUAL TAB INFO MODAL (i) ================= -->
+    <div class="info-modal-sheet" id="info-modal-sheet" onclick="handleInfoBackdropClick(event)">
+      <div class="info-modal-card" onclick="event.stopPropagation()">
+        <!-- Handle for mobile feel -->
+        <div style="width: 38px; height: 4px; border-radius: 9999px; background: var(--bg-surface-subtle); margin: 0 auto -2px auto;"></div>
+
+        <div class="info-modal-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="info-icon-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+            </div>
+            <div>
+              <span style="font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: block;">SCREEN GUIDE & HELP</span>
+              <h4 class="info-modal-title" id="info-sheet-title">About Home Dashboard</h4>
+            </div>
+          </div>
+          <button class="theme-icon-btn" onclick="closeTabInfoModal()" aria-label="Close" style="width: 28px; height: 28px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <!-- Purpose Section -->
+        <div class="info-purpose-box">
+          <span class="info-purpose-label">PURPOSE</span>
+          <p class="info-purpose-text" id="info-sheet-purpose">
+            Your daily command center for tracking the 84-day (12-week) skin turnover cycle.
+          </p>
+        </div>
+
+        <!-- Dynamic Key Features / How It Works / Key Topics -->
+        <div class="info-section-heading" id="info-sheet-section-heading">KEY FEATURES</div>
+        <div class="info-features-wrap" id="info-sheet-features-list">
+          <!-- Populated dynamically based on currentTab -->
+        </div>
+
+        <!-- Dismiss Button -->
+        <button class="btn-primary-action" onclick="closeTabInfoModal()" style="min-height: 48px; margin-top: 4px;">
+          <span>[ Got It ]</span>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ================= FIX 2: ANALYSIS RESULTS SCREEN MODAL ================= -->
+    <div class="results-modal-sheet" id="results-modal-sheet">
+      <div class="pebble-card" style="padding: 16px 20px;">
+        <div class="card-header-line">
+          <span class="card-title" style="color: var(--accent-green);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            BIOMETRIC SCAN EVALUATION
+          </span>
+          <span class="badge-chip green" id="results-phase-tag">PHASE: PURGING</span>
+        </div>
+        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.45;" id="results-summary-text">
+          Sub-surface microcomedones are surfacing through accelerated follicular desquamation. Intact barrier architecture confirmed.
+        </p>
+      </div>
+
+      <!-- 3 Profile Photos Thumbnails Row -->
+      <div class="pebble-card" style="padding: 14px 16px;">
+        <span class="diary-field-title" style="margin-bottom: 8px;">Standardized Facial Profiles (Captured)</span>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+          <div style="aspect-ratio: 1; border-radius: 14px; overflow: hidden; background: #000; border: 1px solid var(--border-soft);">
+            <img id="results-thumb-front" src="" alt="Front profile" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+          <div style="aspect-ratio: 1; border-radius: 14px; overflow: hidden; background: #000; border: 1px solid var(--border-soft);">
+            <img id="results-thumb-left" src="" alt="Left profile" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+          <div style="aspect-ratio: 1; border-radius: 14px; overflow: hidden; background: #000; border: 1px solid var(--border-soft);">
+            <img id="results-thumb-right" src="" alt="Right profile" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Quantitative Biometric Scores -->
+      <div class="pebble-card">
+        <span class="diary-field-title">Measured Dermal Indicators</span>
+        <div class="metrics-glance-grid">
+          <div class="metric-sub-card">
+            <span class="metric-title-small" id="res-lbl-lesions">COMEDONAL OCCLUSIONS</span>
+            <div class="metric-val-big" id="res-val-lesions">[06 - 09 spots]</div>
+            <span style="font-size: 10px; color: var(--accent-orange); font-weight: 700;">ACCELERATED TURNOVER</span>
+          </div>
+
+          <div class="metric-sub-card">
+            <span class="metric-title-small" id="res-lbl-erythema">ERYTHEMA INDEX</span>
+            <div class="metric-val-big" id="res-val-erythema">3.4 / 10</div>
+            <span style="font-size: 10px; color: var(--accent-green); font-weight: 700;">NORMAL VASCULAR TONE</span>
+          </div>
+
+          <div class="metric-sub-card">
+            <span class="metric-title-small" id="res-lbl-sebum">SEBUM BALANCE</span>
+            <div class="metric-val-big" id="res-val-sebum">4.4 / 10</div>
+            <span style="font-size: 10px; color: var(--accent-cyan); font-weight: 700;">EQUILIBRATED</span>
+          </div>
+
+          <div class="metric-sub-card">
+            <span class="metric-title-small" id="res-lbl-texture">TEXTURE REFINEMENT</span>
+            <div class="metric-val-big" id="res-val-texture">7.4 / 10</div>
+            <span style="font-size: 10px; color: var(--accent-green); font-weight: 700;">OSTIA CLEARING</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lifestyle & Diary Correlation Findings Card -->
+      <div class="pebble-card" style="border-left: 4px solid var(--accent-cyan); padding: 16px 18px;">
+        <div class="card-header-line" style="margin-bottom: 6px;">
+          <span class="card-title" style="color: var(--accent-cyan);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            LIFESTYLE & DIARY CORRELATION
+          </span>
+          <span class="badge-chip cyan" id="res-diary-sync-badge">DIARY SYNCED</span>
+        </div>
+
+        <!-- Badges for the factors analyzed -->
+        <div id="res-correlation-badges" style="display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px 0;"></div>
+
+        <!-- AI Plain-language and Clinical Explanation -->
+        <p style="font-size: 12.5px; color: var(--text-primary); line-height: 1.5; margin: 0;" id="res-correlation-insight">
+          High metabolic perspiration combined with sebaceous activity is accelerating superficial pore clearing without barrier disruption.
+        </p>
+      </div>
+
+      <!-- Actionable Protocol -->
+      <div class="pebble-card" style="border-left: 4px solid var(--accent-green);">
+        <span class="diary-field-title">Prescribed Be Bodywise 2% BHA Protocol</span>
+        <div style="font-size: 14px; font-weight: 800; color: var(--accent-green); margin: 2px 0;" id="res-regimen-title">
+          1X DAILY (PM ONLY) — 60s LATHER
+        </div>
+        <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.45;" id="res-regimen-guidance">
+          Maintain 60s gentle contact lather. Do not manually extract surfacing microcomedones. Apply non-comedogenic ceramide agent within 3 minutes.
+        </p>
+        <div style="font-size: 11.5px; background: var(--bg-surface-elevated); padding: 8px 12px; border-radius: 14px; color: var(--text-primary); margin-top: 4px;" id="res-regimen-adjustment">
+          Rinse face with cool water immediately post-workout before evening 2% BHA cleanse.
+        </div>
+      </div>
+
+      <!-- Dismiss & Apply Button -->
+      <button class="btn-primary-action" onclick="closeAnalysisResultsModal()" style="margin-bottom: 24px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>[ Accept & Apply to Regimen ]</span>
+      </button>
+    </div>
+
+  </div>
+
+
+  <!-- ================= LOGIC & INTERACTION ENGINE ================= -->
+  <script>
+    // --- Audio Feedback Synthesizer ---
+    const audio = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+      },
+      shutterClick() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(800, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(140, this.ctx.currentTime + 0.08);
+          gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.08);
+        } catch(e) {}
+      },
+      softTap() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(520, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.04);
+        } catch(e) {}
+      },
+      chime() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [587.33, 880, 1174.66].forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+            gain.gain.setValueAtTime(0.12, now + idx * 0.1);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.4);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + idx * 0.1);
+            osc.stop(now + idx * 0.1 + 0.4);
+          });
+        } catch(e) {}
+      }
+    };
+
+    // --- State Storage ---
+    let currentTheme = 'dark';
+    let currentLanguage = 'clinical'; // 'clinical' | 'plain'
+    let currentTab = 'home';
+    let isAnalyzing = false;
+
+    // Regimen adherence state
+    let amDone = true;
+    let pmDone = false;
+
+    // Daily Lifestyle Snapshot State (20-Second Logger)
+    let diaryState = {
+      workout_level: 'None',
+      sun_exposure: '<15m',
+      spf_compliance: 'Applied Once',
+      water_intake: '1-2L',
+      sleep_duration: '6-8 hrs',
+      barrier_symptoms: ['Calm'],
+      date: new Date().toISOString().split('T')[0]
+    };
+
+    // Active Check-In Context held in memory before camera capture
+    let activeCheckInLifestyle = null;
+
+    // Load persisted diary if present
+    try {
+      const savedDiary = localStorage.getItem('samsung_health_diary') || localStorage.getItem('latest_diary_entry');
+      if (savedDiary) {
+        const parsed = JSON.parse(savedDiary);
+        diaryState = { ...diaryState, ...parsed };
+        activeCheckInLifestyle = { ...diaryState };
+      }
+    } catch(e) {}
+
+    // --- BUG FIX A: ROCK-SOLID CAMERA ANGLE STATE MACHINE ---
+    const ANGLES = ['FRONT', 'LEFT', 'RIGHT'];
+    let activeAngleIndex = 0;
+    const scanBuffers = {
+      FRONT: null,
+      LEFT: null,
+      RIGHT: null,
+    };
+    // Aliases for compatibility
+    let currentStepIndex = 0;
+    const capturedImages = scanBuffers;
+    const scanUploadState = {
+      front: null,
+      left: null,
+      right: null
+    };
+
+    const STEP_GUIDELINES = {
+      0: {
+        badge: "STEP 1 OF 3: FRONT",
+        text: "Position face directly forward in the frame",
+        hud: "1/3: FRONT"
+      },
+      1: {
+        badge: "STEP 2 OF 3: LEFT 45°",
+        text: "Turn head 45° to the right to capture LEFT cheek",
+        hud: "2/3: LEFT 45°"
+      },
+      2: {
+        badge: "STEP 3 OF 3: RIGHT 45°",
+        text: "Turn head 45° to the left to capture RIGHT cheek",
+        hud: "3/3: RIGHT 45°"
+      }
+    };
+
+    let isWebcamActive = false;
+    let webcamStream = null;
+
+    // High-Resolution Synthetic SVG Face Profiles for zero-failure fallback & preview
+    function generateFaceSvg(angle) {
+      const a = (angle || 'front').toString().toLowerCase();
+      const isLeft = a === 'left';
+      const isRight = a === 'right';
+      const rot = isLeft ? -15 : (isRight ? 15 : 0);
+      const shiftX = isLeft ? -20 : (isRight ? 20 : 0);
+
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+          <rect width="400" height="400" fill="#0C0F14"/>
+          <g transform="translate(${shiftX}, 0) rotate(${rot} 200 200)">
+            <ellipse cx="200" cy="200" rx="105" ry="140" fill="#D29985"/>
+            <ellipse cx="200" cy="195" rx="92" ry="124" fill="#E2A692"/>
+            <ellipse cx="${165 + (isLeft ? -5 : 0)}" cy="175" rx="12" ry="7" fill="#4B332A"/>
+            <ellipse cx="${235 + (isRight ? 5 : 0)}" cy="175" rx="12" ry="7" fill="#4B332A"/>
+            <path d="M198 180 L194 215 L206 215 Z" fill="#C98670"/>
+            <path d="M178 240 Q200 252 222 240" stroke="#A75B47" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <circle cx="185" cy="135" r="4" fill="#FF5E62" opacity="0.9"/>
+            <circle cx="215" cy="140" r="3" fill="#FFAA85" opacity="0.95"/>
+            <circle cx="155" cy="210" r="3.5" fill="#FF5E62" opacity="0.85"/>
+            <circle cx="245" cy="205" r="4" fill="#FFAA85" opacity="0.85"/>
+          </g>
+          <text x="20" y="380" fill="#22C55E" font-family="sans-serif" font-size="12" font-weight="bold">${angle.toUpperCase()} PROFILE</text>
+        </svg>
+      `);
+    }
+
+    const DEMO_FACE_FRAME = generateFaceSvg('front');
+
+    // --- Science Tab Content Matrix (Bilingual) ---
+    const SCIENCE_CONTENT_MATRIX = {
+      agent: {
+        clinical: "Lipophilic BHA solubilizes inter-corneocyte cohesion without aromatic terpenes.",
+        plain: "Oil-soluble acid dissolves deep pore clogs without irritating artificial perfumes."
+      },
+      scent: {
+        clinical: "Devoid of volatile synthetic fragrances and aromatic masking terpenes to mitigate contact sensitization in an altered lipid barrier. The aroma reflects pure unmasked 2% BHA.",
+        plain: "Contains zero artificial perfumes. Synthetic scents irritate acne-prone skin, so what you smell is just the pure, active ingredients getting to work."
+      },
+      purge: {
+        clinical: "Accelerated cellular turnover unmasking microcomedones along normal follicular pathways vs diffuse type-IV contact dermatitis.",
+        plain: "Deep trapped clogs surfacing quickly as your skin renews itself vs an allergic reaction with burning, spreading redness."
+      },
+      timer: {
+        clinical: "Sustained contact allows cutaneous lipid partitioning of salicylic acid without causing epidermal moisture stripping.",
+        plain: "Leaving the lather on for 45 to 60 seconds gives the active acid enough time to dissolve deep sebum before being rinsed off."
+      }
+    };
+
+    // --- Dermal Diagnostics Store ---
+    let dermalData = {
+      metrics: {
+        lesion_range: "[06 - 09 spots]",
+        erythema_score: 3.4,
+        sebum_balance: 4.4,
+        texture_smoothness: 7.4,
+        confidence: 94.2
+      },
+      status: {
+        phase: "purging",
+        clinical_summary: "Follicular hyperkeratinization in T-zone with mild post-inflammatory erythema.",
+        plain_summary: "Pores clogged with dead skin and oil on your forehead, with slight redness from healing spots."
+      },
+      lifestyle_correlation: {
+        clinical_insight: "High metabolic perspiration combined with sebaceous activity is accelerating superficial pore clearing without barrier disruption.",
+        plain_insight: "Your workouts and sweat are helping speed up skin clearing, but sweat can mix with natural skin oils if left unrinsed."
+      },
+      actionable_protocol: {
+        recommended_frequency: "1x Daily (PM Only) — 60s Lather",
+        lather_contact_time: 60,
+        immediate_guidance: "Maintain 60s gentle contact lather. Do not manually extract surfacing microcomedones. Apply non-comedogenic ceramide agent within 3 minutes.",
+        lifestyle_adjustment: "Rinse face with cool water immediately post-workout before evening 2% BHA cleanse."
+      }
+    };
+
+    // --- Application Initialization ---
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('camera-frozen-preview').src = DEMO_FACE_FRAME;
+      updateActivityRingsUI();
+      renderDiarySelections();
+      correlateDiaryWithDiagnostics();
+      renderBilingualText();
+      setConflictActive('BP');
+      updateSlotCardsUI();
+      updateScanContextSummary();
+    });
+
+    // --- One UI Reachability Scroll Transition ---
+    const scrollContainer = document.getElementById('scroll-main-content');
+    const headerTitle = document.getElementById('hero-title');
+    const headerSubtitle = document.getElementById('hero-subtitle');
+
+    scrollContainer.addEventListener('scroll', () => {
+      const top = scrollContainer.scrollTop;
+      if (top > 40) {
+        headerTitle.style.fontSize = '20px';
+        headerSubtitle.style.display = 'none';
+      } else {
+        headerTitle.style.fontSize = '24px';
+        headerSubtitle.style.display = 'flex';
+      }
+    });
+
+    // --- WORKFLOW 1: CHECK-IN FLOW (DIARY FIRST -> CAMERA SCAN) ---
+    function startCheckInFlow() {
+      audio.softTap();
+      switchDockTab('diary');
+      showToast('Step 1 of 2: 20-Second Lifestyle Snapshot');
+    }
+
+    function confirmDiaryAndProceedToCamera() {
+      audio.chime();
+      // 1. Save entry immediately into localStorage / memory
+      activeCheckInLifestyle = { ...diaryState };
+      try {
+        localStorage.setItem('samsung_health_diary', JSON.stringify(diaryState));
+        localStorage.setItem('latest_diary_entry', JSON.stringify(diaryState));
+      } catch(e) {}
+
+      correlateDiaryWithDiagnostics();
+      renderBilingualText();
+      updateActivityRingsUI();
+      showToast('Diary Confirmed • Loading Camera Scanner...');
+
+      // 2. Automatically transition to Step 2: 3-Profile Guided Camera
+      setTimeout(() => {
+        transitionToStep2CameraScan();
+      }, 350);
+    }
+
+    function transitionToStep2CameraScan() {
+      currentTab = 'scan';
+      const tabs = ['home', 'scan', 'diary', 'science'];
+      tabs.forEach(t => {
+        const sec = document.getElementById(`tab-${t}`);
+        const btn = document.getElementById(`dock-btn-${t}`);
+        if (sec) sec.style.display = (t === 'scan') ? 'flex' : 'none';
+        if (btn) btn.classList.toggle('active', t === 'scan');
+      });
+
+      headerTitle.textContent = "AI Facial Scan";
+      document.getElementById('hero-subtext').textContent = "Step 2 of 2: 3-Angle Profile Biometric Capture";
+      updateScanContextSummary();
+      activeAngleIndex = 0;
+      currentStepIndex = 0;
+      updateCaptureSlotsAndStepperUI();
+      scrollContainer.scrollTop = 0;
+    }
+
+    function updateScanContextSummary() {
+      const ctx = activeCheckInLifestyle || getEffectiveDiaryContext();
+      const summaryEl = document.getElementById('ctx-summary-text');
+      if (summaryEl) {
+        const b = Array.isArray(ctx.barrierSymptoms) ? ctx.barrierSymptoms.join(', ') : (ctx.barrier_symptoms ? ctx.barrier_symptoms.join(', ') : 'Calm');
+        const w = ctx.workout || ctx.workout_level || 'None';
+        const s = ctx.spfCompliance || ctx.spf_compliance || 'Applied Once';
+        summaryEl.textContent = `Sweat: ${w} • SPF: ${s} • Barrier: ${b}`;
+      }
+    }
+
+    // --- Dock Navigation Tab Switcher ---
+    function switchDockTab(tabId) {
+      audio.softTap();
+
+      // Enforce Diary First check-in workflow when tapping Scan tab
+      if (tabId === 'scan' && !activeCheckInLifestyle) {
+        showToast('Step 1 of 2: Log Lifestyle Snapshot First');
+        switchDockTab('diary');
+        return;
+      }
+
+      currentTab = tabId;
+      const tabs = ['home', 'scan', 'diary', 'science'];
+      tabs.forEach(t => {
+        const sec = document.getElementById(`tab-${t}`);
+        const btn = document.getElementById(`dock-btn-${t}`);
+        if (sec) sec.style.display = (t === tabId) ? 'flex' : 'none';
+        if (btn) btn.classList.toggle('active', t === tabId);
+      });
+
+      // Update Header Title by Tab
+      const titles = {
+        home: "Good evening, Aanya",
+        scan: "AI Facial Scan",
+        diary: "Step 1: Lifestyle Snapshot",
+        science: "Science Lab"
+      };
+      const subtexts = {
+        home: "Day 18 of 84 • Cellular Turnover Horizon",
+        scan: "Step 2 of 2: 3-Angle Profile Biometric Capture",
+        diary: "20-Second Lifestyle Variable Logger",
+        science: "2% Salicylic Acid Clinical Monograph"
+      };
+      headerTitle.textContent = titles[tabId];
+      document.getElementById('hero-subtext').textContent = subtexts[tabId];
+
+      if (tabId === 'scan') {
+        updateScanContextSummary();
+      }
+
+      scrollContainer.scrollTop = 0;
+    }
+
+    // --- Theme Switcher (AMOLED Dark / Clean Light) ---
+    function toggleTheme() {
+      audio.softTap();
+      currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      document.getElementById('meta-theme').setAttribute('content', currentTheme === 'dark' ? '#000000' : '#F2F4F8');
+      
+      const iconSvg = document.getElementById('theme-icon-svg');
+      if (currentTheme === 'dark') {
+        iconSvg.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+      } else {
+        iconSvg.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+      }
+      showToast(currentTheme === 'dark' ? 'AMOLED Dark Mode Enabled' : 'Medical Light Mode Enabled');
+    }
+
+    // --- Universal Language Switcher ---
+    function switchLanguage(lang) {
+      audio.softTap();
+      currentLanguage = lang;
+      document.getElementById('btn-lang-clinical').classList.toggle('active', lang === 'clinical');
+      document.getElementById('btn-lang-plain').classList.toggle('active', lang === 'plain');
+      renderBilingualText();
+      showToast(lang === 'clinical' ? 'Clinical Dermatological Terms' : 'Plain English Terms');
+    }
+
+    function renderBilingualText() {
+      const isClin = (currentLanguage === 'clinical');
+      const d = dermalData;
+
+      // 1. Dashboard
+      document.getElementById('scan-summary-title').textContent = isClin ? 'LATEST SCAN DIAGNOSTIC' : 'YOUR SKIN HEALTH SUMMARY';
+      document.getElementById('scan-phase-pill').textContent = isClin ? `PHASE: ${d.status.phase.toUpperCase()}` : (d.status.phase === 'irritated' ? 'MILD BARRIER SENSITIVITY' : 'NORMAL CLEARING (PURGING)');
+      document.getElementById('scan-summary-body').textContent = isClin ? d.status.clinical_summary : d.status.plain_summary;
+
+      document.getElementById('lbl-metric-lesions').textContent = isClin ? 'COMEDONAL OCCLUSIONS' : 'CLOGGED PORES';
+      document.getElementById('lbl-metric-erythema').textContent = isClin ? 'ERYTHEMA INDEX' : 'REDNESS / HEALING';
+      document.getElementById('lbl-metric-sebum').textContent = isClin ? 'SEBUM LIPID FRACTION' : 'SKIN OIL BALANCE';
+      document.getElementById('lbl-metric-texture').textContent = isClin ? 'TEXTURE REFINEMENT' : 'SMOOTHNESS';
+
+      document.getElementById('diary-card-title').textContent = isClin ? 'LIFESTYLE & DIARY CORRELATION' : 'DAILY HABIT IMPACT';
+      document.getElementById('lifestyle-insight-text').textContent = isClin ? d.lifestyle_correlation.clinical_insight : d.lifestyle_correlation.plain_insight;
+      document.getElementById('lifestyle-directive-box').textContent = isClin ? `Protocol Directive: ${d.actionable_protocol.lifestyle_adjustment}` : `Tip: ${d.actionable_protocol.lifestyle_adjustment}`;
+
+      document.getElementById('am-task-title').textContent = isClin ? 'AM Gentle Cleanse + Broad-Spectrum SPF 50+' : 'Morning Wash & Sunscreen SPF 50+';
+      document.getElementById('pm-task-title').textContent = isClin ? 'PM 2% Salicylic Acid (BHA) Cleanser' : 'Night-time BHA Face Wash';
+
+      // 2. Science Tab
+      document.getElementById('sci-title-agent').textContent = isClin ? '01. THE ACTIVE AGENT: 2% SALICYLIC ACID' : '01. THE ACTIVE INGREDIENT: 2% BHA';
+      document.getElementById('sci-body-agent').textContent = isClin ? SCIENCE_CONTENT_MATRIX.agent.clinical : SCIENCE_CONTENT_MATRIX.agent.plain;
+
+      document.getElementById('sci-title-scent').textContent = isClin ? '02. SENSORY & AROMA PROFILE: ZERO MASKING' : '02. WHY IT SMELLS MEDICATED';
+      document.getElementById('sci-body-scent').textContent = isClin ? SCIENCE_CONTENT_MATRIX.scent.clinical : SCIENCE_CONTENT_MATRIX.scent.plain;
+
+      document.getElementById('sci-title-purge').textContent = isClin ? '03. PURGE VS IRRITATION PHENOMENON' : '03. BREAKING OUT VS PURGING';
+      document.getElementById('sci-body-purge').textContent = isClin ? SCIENCE_CONTENT_MATRIX.purge.clinical : SCIENCE_CONTENT_MATRIX.purge.plain;
+
+      document.getElementById('sci-title-timer').textContent = isClin ? '04. OPTIMAL CONTACT TIME (60-SECOND RULE)' : '04. WHY THE 60-SECOND RULE MATTERS';
+      document.getElementById('sci-body-timer').textContent = isClin ? SCIENCE_CONTENT_MATRIX.timer.clinical : SCIENCE_CONTENT_MATRIX.timer.plain;
+    }
+
+    // --- BUG FIX B: SAMSUNG HEALTH CONCENTRIC TRIO ACTIVITY RINGS (r=82, 64, 46) ---
+    function updateActivityRingsUI() {
+      // 1. Outer Green Ring: r=82, stroke-width=12 (Circumference = 515)
+      const bhaPct = pmDone ? 1.0 : (amDone ? 0.75 : 0.25);
+      const bhaOffset = 515 * (1 - bhaPct);
+      document.getElementById('svg-ring-bha').style.strokeDashoffset = bhaOffset;
+      document.getElementById('stat-bha-pct').textContent = `${Math.round(bhaPct * 100)}%`;
+
+      // 2. Middle Cyan Ring: r=64, stroke-width=12 (Circumference = 402)
+      let balScore = 0.5;
+      const w = diaryState.water_intake;
+      if (w === '1-2L' || w === '2L+' || w === '1.0 - 2.0 L' || w === '>2.0 L') balScore += 0.2;
+      const s = diaryState.sleep_duration;
+      if (s === '6-8 hrs' || s === '8+ hrs' || s === '6 - 8 HOURS' || s === '>8 HOURS') balScore += 0.15;
+      if (diaryState.spf_compliance !== 'No SPF' && diaryState.spf_compliance !== 'NO SPF') balScore += 0.15;
+      balScore = Math.min(1.0, balScore);
+      const balOffset = 402 * (1 - balScore);
+      document.getElementById('svg-ring-balance').style.strokeDashoffset = balOffset;
+      document.getElementById('stat-balance-pct').textContent = `${Math.round(balScore * 100)}%`;
+
+      // 3. Inner Coral Ring: r=46, stroke-width=10 (Circumference = 289)
+      const journeyPct = 18 / 84;
+      const journeyOffset = 289 * (1 - journeyPct);
+      document.getElementById('svg-ring-journey').style.strokeDashoffset = journeyOffset;
+      document.getElementById('stat-journey-pct').textContent = `21.4%`;
+    }
+
+    // --- Regimen Checklist Toggles ---
+    function toggleAMCheck() {
+      audio.softTap();
+      amDone = !amDone;
+      const box = document.getElementById('check-am-box');
+      const badge = document.getElementById('am-status-badge');
+      box.classList.toggle('done', amDone);
+      badge.textContent = amDone ? 'DONE' : 'PENDING';
+      badge.className = amDone ? 'badge-chip green' : 'badge-chip';
+      updateActivityRingsUI();
+    }
+
+    function togglePMCheck() {
+      audio.softTap();
+      pmDone = !pmDone;
+      const box = document.getElementById('check-pm-box');
+      box.classList.toggle('done', pmDone);
+      updateActivityRingsUI();
+      if (pmDone) {
+        audio.chime();
+        showToast('PM 2% BHA Wash Logged');
+      }
+    }
+
+    // --- Samsung Health Circular 60-Second Timer Modal ---
+    let timerTotal = 60;
+    let timerRemaining = 60;
+    let timerInterval = null;
+    let timerRunning = false;
+
+    function openTimerModal() {
+      audio.softTap();
+      document.getElementById('timer-modal').style.display = 'flex';
+      resetTimer();
+      startTimer();
+    }
+
+    function closeTimerModal() {
+      audio.softTap();
+      pauseTimer();
+      document.getElementById('timer-modal').style.display = 'none';
+    }
+
+    function startTimer() {
+      timerRunning = true;
+      document.getElementById('timer-toggle-btn').textContent = 'PAUSE';
+      timerInterval = setInterval(() => {
+        timerRemaining--;
+        updateTimerDisplay();
+
+        if (timerRemaining <= 0) {
+          clearInterval(timerInterval);
+          timerRunning = false;
+          audio.chime();
+          showToast('60-Second Cleanse Complete!');
+          pmDone = true;
+          document.getElementById('check-pm-box').classList.add('done');
+          updateActivityRingsUI();
+          setTimeout(closeTimerModal, 1500);
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      timerRunning = false;
+      clearInterval(timerInterval);
+      document.getElementById('timer-toggle-btn').textContent = 'RESUME';
+    }
+
+    function toggleTimerState() {
+      audio.softTap();
+      if (timerRunning) pauseTimer();
+      else startTimer();
+    }
+
+    function resetTimer() {
+      pauseTimer();
+      timerRemaining = timerTotal;
+      updateTimerDisplay();
+      document.getElementById('timer-toggle-btn').textContent = 'START';
+    }
+
+    function updateTimerDisplay() {
+      document.getElementById('timer-clock-display').textContent = timerRemaining;
+      const progressOffset = 596.9 * (1 - (timerRemaining / timerTotal));
+      document.getElementById('timer-bar-svg').style.strokeDashoffset = progressOffset;
+
+      const instTitle = document.getElementById('timer-instruction-text');
+      const instSub = document.getElementById('timer-sub-instruction');
+
+      if (timerRemaining > 40) {
+        instTitle.textContent = "CIRCULAR LATHER";
+        instSub.textContent = "Gently massage cleanser across wet skin to activate micro-foam lather.";
+      } else if (timerRemaining > 20) {
+        instTitle.textContent = "CONCENTRATE OSTIA";
+        instSub.textContent = "Focus on dense sebaceous zones: nose bridge, forehead, and chin crease.";
+      } else {
+        instTitle.textContent = "COOL WATER RINSE";
+        instSub.textContent = "Allow salicylic acid penetration, then rinse thoroughly with cool water.";
+      }
+    }
+
+    // --- BUG FIX A: PERSISTENT MEDIASTREAM SHUTTER TRIGGER & RETAKES ---
+    function setManualAngleStep(index) {
+      audio.softTap();
+      activeAngleIndex = Math.max(0, Math.min(2, index));
+      currentStepIndex = activeAngleIndex;
+      updateCaptureSlotsAndStepperUI();
+      showToast(`Selected ${ANGLES[activeAngleIndex]} Angle`);
+    }
+
+    function updateCaptureSlotsAndStepperUI() {
+      // 1. Update Stepper Pills
+      ANGLES.forEach((ang, idx) => {
+        const pill = document.getElementById(`pill-step-${ang}`);
+        if (pill) {
+          const isCaptured = Boolean(scanBuffers[ang]);
+          const isActive = (activeAngleIndex === idx);
+          pill.classList.toggle('active', isActive);
+          pill.classList.toggle('completed', isCaptured);
+          const dot = pill.querySelector('.stepper-dot');
+          if (dot) dot.textContent = (isCaptured || isActive) ? '●' : '○';
+        }
+      });
+
+      // 2. Update Guideline Banner & Camera HUD
+      const guide = STEP_GUIDELINES[activeAngleIndex] || STEP_GUIDELINES[0];
+      const guideBadge = document.getElementById('guideline-step-badge');
+      const guideText = document.getElementById('guideline-text');
+      const hudBadge = document.getElementById('hud-angle-badge');
+      if (guideBadge) guideBadge.textContent = guide.badge;
+      if (guideText) guideText.textContent = guide.text;
+      if (hudBadge) hudBadge.textContent = guide.hud;
+
+      // 3. Update Slot Cards & Thumbnails
+      let filledCount = 0;
+      const angleKeys = ['front', 'left', 'right'];
+      ANGLES.forEach((ang, idx) => {
+        const key = angleKeys[idx];
+        const imgData = scanBuffers[ang];
+        const hasData = Boolean(imgData);
+        if (hasData) filledCount++;
+
+        const card = document.getElementById(`slot-card-${key}`);
+        const preview = document.getElementById(`slot-preview-${key}`);
+        const status = document.getElementById(`slot-status-${key}`);
+
+        if (card) {
+          card.classList.toggle('filled', hasData);
+          card.classList.toggle('active-target', activeAngleIndex === idx);
+        }
+        if (status) {
+          status.textContent = hasData ? 'SAVED' : (activeAngleIndex === idx ? 'ACTIVE' : 'EMPTY');
+        }
+        if (preview) {
+          preview.innerHTML = hasData
+            ? `<img src="${imgData}" alt="${ang} preview" style="width:100%; height:100%; object-fit:cover;" />`
+            : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>`;
+        }
+      });
+
+      const slotsCount = document.getElementById('slots-count-badge');
+      if (slotsCount) slotsCount.textContent = `${filledCount} / 3 READY`;
+
+      // 4. Update sensor preview if webcam is inactive
+      if (!isWebcamActive) {
+        const frozenPreview = document.getElementById('camera-frozen-preview');
+        if (frozenPreview) {
+          frozenPreview.src = generateFaceSvg(ANGLES[activeAngleIndex].toLowerCase());
+        }
+      }
+    }
+
+    function updateSlotCardsUI() {
+      updateCaptureSlotsAndStepperUI();
+    }
+
+    function handleSlotFile(slot, event) {
+      const file = event.target.files && event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const base64 = e.target.result;
+          const ang = slot.toUpperCase();
+          scanBuffers[ang] = base64;
+          capturedImages[ang] = base64;
+          scanUploadState[slot.toLowerCase()] = base64;
+          audio.softTap();
+          showToast(`Uploaded ${ang} Profile`);
+          updateCaptureSlotsAndStepperUI();
+
+          if (scanBuffers.FRONT && scanBuffers.LEFT && scanBuffers.RIGHT && !isAnalyzing) {
+            triggerUnifiedAnalysis(scanBuffers, activeCheckInLifestyle);
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function handleActiveFilePick(event) {
+      const ang = ANGLES[activeAngleIndex];
+      const slot = ang.toLowerCase();
+      handleSlotFile(slot, event);
+    }
+
+    // Emergency Fallback: Multi-File Input Button
+    function handleManualMultiUpload(event) {
+      const files = event.target.files;
+      if (!files || files.length === 0) return;
+      audio.softTap();
+
+      const fileList = Array.from(files).slice(0, 3);
+      let loaded = 0;
+
+      fileList.forEach((file, idx) => {
+        const ang = ANGLES[idx];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const base64 = e.target.result;
+          scanBuffers[ang] = base64;
+          capturedImages[ang] = base64;
+          scanUploadState[ang.toLowerCase()] = base64;
+          loaded++;
+
+          if (loaded === fileList.length) {
+            showToast(`Loaded ${loaded} photo(s) manually`);
+            updateCaptureSlotsAndStepperUI();
+            if (scanBuffers.FRONT && scanBuffers.LEFT && scanBuffers.RIGHT) {
+              showToast('All 3 photos uploaded! Starting analysis...');
+              setTimeout(() => triggerUnifiedAnalysis(scanBuffers, activeCheckInLifestyle), 400);
+            }
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function toggleCameraStream() {
+      audio.softTap();
+      const video = document.getElementById('live-webcam-feed');
+      const img = document.getElementById('camera-frozen-preview');
+
+      if (!isWebcamActive) {
+        try {
+          webcamStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
+          });
+          video.srcObject = webcamStream;
+          video.style.display = 'block';
+          img.style.display = 'none';
+          isWebcamActive = true;
+          showToast('Live Camera Feed Active');
+        } catch (e) {
+          showToast('Live Camera Unavailable — Using Sensor Preview');
+        }
+      } else {
+        if (webcamStream) webcamStream.getTracks().forEach(t => t.stop());
+        video.style.display = 'none';
+        img.style.display = 'block';
+        isWebcamActive = false;
+        showToast('Camera Feed Paused');
+      }
+    }
+
+    // Rock-Solid Hardware Snap: single persistent MediaStream without re-instantiation
+    function triggerHardwareSnap() {
+      audio.shutterClick();
+
+      // Trigger 100ms flash feedback
+      const flash = document.getElementById('camera-flash-overlay');
+      if (flash) {
+        flash.style.opacity = '0.85';
+        setTimeout(() => { flash.style.opacity = '0'; }, 100);
+      }
+
+      const currentAngle = ANGLES[activeAngleIndex];
+      const video = document.getElementById('live-webcam-feed');
+      let frameBase64;
+
+      if (isWebcamActive && video && video.videoWidth) {
+        // Offscreen canvas grab
+        const canvas = document.getElementById('shutter-canvas') || document.createElement('canvas');
+        canvas.width = video.videoWidth || 1280;
+        canvas.height = video.videoHeight || 720;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        frameBase64 = canvas.toDataURL('image/jpeg', 0.85);
+      } else {
+        frameBase64 = generateFaceSvg(currentAngle.toLowerCase());
+      }
+
+      // Keep single persistent stream attached to video - DO NOT stop/re-instantiate!
+      scanBuffers[currentAngle] = frameBase64;
+      capturedImages[currentAngle] = frameBase64;
+      scanUploadState[currentAngle.toLowerCase()] = frameBase64;
+
+      // Condition: step forward or trigger analysis on 3rd angle
+      if (activeAngleIndex < 2) {
+        activeAngleIndex++;
+        currentStepIndex = activeAngleIndex;
+        updateCaptureSlotsAndStepperUI();
+        showToast(`Captured ${currentAngle}! Next: ${ANGLES[activeAngleIndex]}`);
+      } else {
+        // All 3 profiles captured!
+        updateCaptureSlotsAndStepperUI();
+        isAnalyzing = true;
+        showToast('All 3 angles captured! Starting unified analysis...');
+        setTimeout(() => {
+          triggerUnifiedAnalysis(scanBuffers, activeCheckInLifestyle);
+        }, 350);
+      }
+    }
+
+    // Retrieve active or stored diary context with baseline fallback
+    function getEffectiveDiaryContext() {
+      if (activeCheckInLifestyle) {
+        return {
+          workout: activeCheckInLifestyle.workout_level || activeCheckInLifestyle.workout || 'None',
+          sunExposure: activeCheckInLifestyle.sun_exposure || activeCheckInLifestyle.sunExposure || '<15m',
+          spfCompliance: activeCheckInLifestyle.spf_compliance || activeCheckInLifestyle.spfCompliance || 'Applied Once',
+          barrierSymptoms: activeCheckInLifestyle.barrier_symptoms || activeCheckInLifestyle.barrierSymptoms || ['Calm'],
+          sleepDuration: activeCheckInLifestyle.sleep_duration || activeCheckInLifestyle.sleepDuration || '6-8 hrs'
+        };
+      }
+      let diaryEntry = null;
+      try {
+        const saved = localStorage.getItem('samsung_health_diary') || localStorage.getItem('latest_diary_entry');
+        if (saved) {
+          diaryEntry = JSON.parse(saved);
+        }
+      } catch (e) {}
+
+      const baseline = {
+        workout: 'None',
+        sunExposure: '<15m',
+        spfCompliance: 'Applied Once',
+        barrierSymptoms: ['Calm'],
+        sleepDuration: '6-8 hrs'
+      };
+
+      if (!diaryEntry) return baseline;
+
+      return {
+        workout: diaryEntry.workout_level || diaryEntry.workout || baseline.workout,
+        sunExposure: diaryEntry.sun_exposure || diaryEntry.sunExposure || baseline.sunExposure,
+        spfCompliance: diaryEntry.spf_compliance || diaryEntry.spfCompliance || baseline.spfCompliance,
+        barrierSymptoms: (Array.isArray(diaryEntry.barrier_symptoms) && diaryEntry.barrier_symptoms.length > 0)
+          ? diaryEntry.barrier_symptoms
+          : (diaryEntry.barrierSymptoms || baseline.barrierSymptoms),
+        sleepDuration: diaryEntry.sleep_duration || diaryEntry.sleepDuration || baseline.sleepDuration
+      };
+    }
+
+    // --- BUG FIX C: RESILIENT 3-SECOND TIMEOUT & LOCAL HEURISTIC ANALYSIS ENGINE ---
+    async function triggerUnifiedAnalysis(captures, lifestyleCtx) {
+      if (!isAnalyzing) isAnalyzing = true;
+      const modal = document.getElementById('loading-modal');
+      if (modal) modal.style.display = 'flex';
+      audio.chime();
+
+      const diaryContext = lifestyleCtx || activeCheckInLifestyle || getEffectiveDiaryContext();
+
+      const steps = [
+        "Aligning 3 facial angles with dermal topology...",
+        "Evaluating erythema & sebum lipid balance...",
+        "Cross-correlating latest Lifestyle Diary variables...",
+        "Synthesizing Be Bodywise 2% BHA protocol..."
+      ];
+      let s = 0;
+      const pulseInterval = setInterval(() => {
+        s++;
+        if (s < steps.length) {
+          const stepEl = document.getElementById('loading-step-text');
+          if (stepEl) stepEl.textContent = steps[s];
+        }
+      }, 360);
+
+      let analysisPayload = null;
+      const imagesArray = [
+        captures.FRONT || captures.front,
+        captures.LEFT || captures.left,
+        captures.RIGHT || captures.right
+      ].filter(Boolean);
+
+      const requestPayload = {
+        images: imagesArray,
+        scanWeek: 3,
+        lifestyleContext: {
+          workout: diaryContext.workout || diaryContext.workout_level,
+          sunExposure: diaryContext.sunExposure || diaryContext.sun_exposure,
+          spfCompliance: diaryContext.spfCompliance || diaryContext.spf_compliance,
+          barrierSensations: diaryContext.barrierSymptoms || diaryContext.barrier_symptoms,
+          sleepDuration: diaryContext.sleepDuration || diaryContext.sleep_duration
+        }
+      };
+
+      // 3-second AbortController timeout to prevent unhandled exceptions or white-screens
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+      try {
+        const resp = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestPayload),
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        if (resp.ok) {
+          analysisPayload = await resp.json();
+        }
+      } catch (err) {
+        clearTimeout(timeoutId);
+        console.warn("API request timed out (3s) or failed, seamlessly engaging deterministic fallback:", err);
+      }
+
+      // Smooth fallback to local deterministic heuristic engine
+      if (!analysisPayload || !analysisPayload.metrics) {
+        analysisPayload = generateDeterministicAnalysis(requestPayload.lifestyleContext);
+      }
+
+      clearInterval(pulseInterval);
+
+      setTimeout(() => {
+        if (modal) modal.style.display = 'none';
+        isAnalyzing = false;
+        applyAnalysisResultsToUI(analysisPayload, diaryContext);
+        audio.chime();
+        showToast('Biometric Analysis Complete!');
+        openAnalysisResultsModal(analysisPayload, diaryContext);
+      }, 1200);
+    }
+
+    function triggerDiagnosticAnalysis(images) {
+      const captures = Array.isArray(images) ? {
+        FRONT: images[0] || null,
+        LEFT: images[1] || null,
+        RIGHT: images[2] || null
+      } : images;
+      return triggerUnifiedAnalysis(captures, activeCheckInLifestyle);
+    }
+
+    // Dynamic Heuristic Engine adhering to clinical rules
+    function generateDeterministicAnalysis(context) {
+      const barrier = context.barrierSensations || context.barrier_symptoms || context.barrierSymptoms || [];
+      const workout = (context.workout || context.workout_level || 'None').toString();
+      const sun = (context.sunExposure || context.sun_exposure || '<15m').toString();
+      const spf = (context.spfCompliance || context.spf_compliance || 'Applied Once').toString();
+      const sleep = (context.sleepDuration || context.sleep_duration || '6-8 hrs').toString();
+
+      const hasStinging = barrier.some(s => {
+        const lower = s.toLowerCase();
+        return lower.includes('sting') || lower.includes('peel') || lower.includes('tight');
+      });
+      const hasHeavySweat = workout.toLowerCase().includes('heavy') || workout.toLowerCase().includes('intense');
+      const hasProlongedSun = sun.toLowerCase().includes('prolong') || (sun.includes('>60') && (spf.toLowerCase().includes('no spf') || spf.toLowerCase().includes('once')));
+      const hasLowSleep = sleep.includes('<6');
+
+      // Rule 1: Stinging Logged -> Erythema = 4.8/10, Step down to alternate nights, Mild barrier sensitivity detected
+      if (hasStinging) {
+        return {
+          metrics: {
+            lesion_range: { min: 5, max: 8 },
+            erythema_score: 4.8,
+            sebum_balance: 3.4,
+            texture_smoothness: 6.2,
+            confidence_rating: 0.96
+          },
+          status: {
+            phase: 'irritated',
+            clinical_summary: 'Follicular hyperkeratinization in T-zone with mild post-inflammatory erythema.',
+            plain_summary: 'Pores clogged with dead skin and oil on your forehead, with slight redness from healing spots.'
+          },
+          lifestyle_correlation: {
+            clinical_insight: 'Mild barrier sensitivity detected. Reported stinging upon moisturizing indicates degraded lipid bilayer integrity. Mandates stepping down to alternate nights to halt transepidermal water loss (TEWL).',
+            plain_insight: 'Mild barrier sensitivity detected. Because you logged stinging upon moisturizing, your skin needs extra care. Step down to alternate nights and layer a gentle moisturizer.'
+          },
+          actionable_protocol: {
+            recommended_frequency: 'Step down to alternate nights',
+            lather_contact_time: 30,
+            immediate_guidance: 'Step down to alternate nights. Reduce Be Bodywise 2% BHA face wash to alternate nights and layer a ceramide barrier cream immediately after washing.',
+            lifestyle_adjustment: 'Mild barrier sensitivity detected. Suspend secondary active serums (retinoids, AHA, vitamin C) until stinging fully subsides.'
+          }
+        };
+      }
+
+      // Rule 2: Heavy Perspiration -> Post-workout sweat residue detected in T-zone
+      let clinInsight = 'High metabolic perspiration combined with sebaceous activity is accelerating superficial pore clearing without barrier disruption.';
+      let plnInsight = 'Your workouts and sweat are helping speed up skin clearing, but sweat can mix with natural skin oils if left unrinsed.';
+      let adjustment = 'Rinse face with cool water immediately post-workout before evening 2% BHA cleanse.';
+
+      if (hasHeavySweat) {
+        clinInsight = 'Post-workout sweat residue detected in T-zone. Perspiration-induced urea & NaCl evaporation elevates surface pH (~6.2), combining with sebum to induce localized microcomedones.';
+        plnInsight = 'Post-workout sweat residue detected in T-zone. Rinse face with cool water immediately after exercise before using your night cleanser.';
+        adjustment = 'Post-workout sweat residue detected in T-zone. Rinse face with cool water immediately after exercise.';
+      } else if (hasProlongedSun) {
+        clinInsight = 'HIGH-PRIORITY PHOTO-SENSITIVITY WARNING: Elevated solar UV exposure with inadequate SPF thins the outer stratum corneum during 2% salicylic acid cellular turnover, increasing erythema risk.';
+        plnInsight = 'High-priority photo-sensitivity warning: Because Salicylic Acid clears away dead surface cells, your fresh skin is much more sensitive to sunlight. Reapply broad-spectrum sunscreen every 2 hours.';
+        adjustment = 'Mandatory broad-spectrum SPF 50 reapplication every 2 hours during direct daylight exposure.';
+      } else if (hasLowSleep) {
+        clinInsight = 'Sub-6h circadian disruption correlates with nocturnal cortisol elevation and peripheral sebocyte hyperactivity along the lower mandibular angle.';
+        plnInsight = 'Less than 6 hours of sleep can spike stress hormones, which triggers extra oil production along the chin and jawline.';
+        adjustment = 'Maintain 45s contact lather specifically along the jawline; prioritize sleep hygiene to mitigate cortisol spikes.';
+      }
+
+      return {
+        metrics: {
+          lesion_range: { min: 6, max: 9 },
+          erythema_score: hasProlongedSun ? 4.2 : 3.4,
+          sebum_balance: hasHeavySweat ? 4.8 : 4.4,
+          texture_smoothness: 7.4,
+          confidence_rating: 0.94
+        },
+        status: {
+          phase: 'purging',
+          clinical_summary: 'Follicular hyperkeratinization in T-zone with mild post-inflammatory erythema.',
+          plain_summary: 'Pores clogged with dead skin and oil on your forehead, with slight redness from healing spots.'
+        },
+        lifestyle_correlation: {
+          clinical_insight: clinInsight,
+          plain_insight: plnInsight
+        },
+        actionable_protocol: {
+          recommended_frequency: '1x Daily (PM Only) — 60s Lather',
+          lather_contact_time: 60,
+          immediate_guidance: 'Maintain 60s gentle contact lather. Do not manually extract surfacing microcomedones. Apply non-comedogenic ceramide agent within 3 minutes.',
+          lifestyle_adjustment: adjustment
+        }
+      };
+    }
+
+    function applyAnalysisResultsToUI(res, diaryContext) {
+      dermalData.metrics.lesion_range = `[0${res.metrics.lesion_range.min} - 0${res.metrics.lesion_range.max} spots]`;
+      dermalData.metrics.erythema_score = res.metrics.erythema_score;
+      dermalData.metrics.sebum_balance = res.metrics.sebum_balance;
+      dermalData.metrics.texture_smoothness = res.metrics.texture_smoothness;
+      dermalData.status.phase = res.status.phase;
+      dermalData.status.clinical_summary = res.status.clinical_summary;
+      dermalData.status.plain_summary = res.status.plain_summary;
+      dermalData.lifestyle_correlation.clinical_insight = res.lifestyle_correlation.clinical_insight;
+      dermalData.lifestyle_correlation.plain_insight = res.lifestyle_correlation.plain_insight;
+      dermalData.actionable_protocol.recommended_frequency = res.actionable_protocol.recommended_frequency;
+      dermalData.actionable_protocol.lifestyle_adjustment = res.actionable_protocol.lifestyle_adjustment;
+
+      // Update Dashboard elements
+      document.getElementById('val-metric-lesions').textContent = dermalData.metrics.lesion_range;
+      document.getElementById('val-metric-erythema').textContent = `${dermalData.metrics.erythema_score} / 10`;
+      document.getElementById('val-metric-sebum').textContent = `${dermalData.metrics.sebum_balance} / 10`;
+      document.getElementById('val-metric-texture').textContent = `${dermalData.metrics.texture_smoothness} / 10`;
+
+      document.getElementById('bar-metric-erythema').style.width = `${dermalData.metrics.erythema_score * 10}%`;
+      document.getElementById('bar-metric-sebum').style.width = `${dermalData.metrics.sebum_balance * 10}%`;
+      document.getElementById('bar-metric-texture').style.width = `${dermalData.metrics.texture_smoothness * 10}%`;
+
+      document.getElementById('regimen-freq-badge').textContent = (dermalData.status.phase === 'irritated') ? 'ALTERNATE NIGHTS' : '1X DAILY (PM)';
+      document.getElementById('regimen-freq-badge').className = (dermalData.status.phase === 'irritated') ? 'badge-chip coral' : 'badge-chip cyan';
+
+      renderBilingualText();
+    }
+
+    function openAnalysisResultsModal(res, diaryContext) {
+      if (!diaryContext) diaryContext = getEffectiveDiaryContext();
+
+      // Render thumbnails
+      document.getElementById('results-thumb-front').src = scanBuffers.FRONT || scanUploadState.front || generateFaceSvg('front');
+      document.getElementById('results-thumb-left').src = scanBuffers.LEFT || scanUploadState.left || generateFaceSvg('left');
+      document.getElementById('results-thumb-right').src = scanBuffers.RIGHT || scanUploadState.right || generateFaceSvg('right');
+
+      const isClin = (currentLanguage === 'clinical');
+      document.getElementById('results-phase-tag').textContent = `PHASE: ${res.status.phase.toUpperCase()}`;
+      document.getElementById('results-phase-tag').className = (res.status.phase === 'irritated') ? 'badge-chip coral' : 'badge-chip green';
+      document.getElementById('results-summary-text').textContent = isClin ? res.status.clinical_summary : res.status.plain_summary;
+
+      document.getElementById('res-val-lesions').textContent = `[0${res.metrics.lesion_range.min} - 0${res.metrics.lesion_range.max} spots]`;
+      document.getElementById('res-val-erythema').textContent = `${res.metrics.erythema_score} / 10`;
+      document.getElementById('res-val-sebum').textContent = `${res.metrics.sebum_balance} / 10`;
+      document.getElementById('res-val-texture').textContent = `${res.metrics.texture_smoothness} / 10`;
+
+      // Populate dedicated factor badges in Lifestyle & Diary Correlation card
+      const badgesContainer = document.getElementById('res-correlation-badges');
+      if (badgesContainer) {
+        badgesContainer.innerHTML = '';
+
+        // Workout Badge
+        const wSpan = document.createElement('span');
+        const isHeavy = diaryContext.workout.includes('Heavy') || diaryContext.workout.includes('INTENSE');
+        wSpan.className = isHeavy ? 'badge-chip amber' : 'badge-chip cyan';
+        wSpan.textContent = `Workout: ${isHeavy ? 'Heavy Perspiration' : (diaryContext.workout.includes('Moderate') ? 'Moderate' : 'None')}`;
+        badgesContainer.appendChild(wSpan);
+
+        // SPF Compliance Badge
+        const spfSpan = document.createElement('span');
+        const isLowSpf = diaryContext.spfCompliance.includes('No SPF') || diaryContext.spfCompliance.includes('NO SPF');
+        spfSpan.className = isLowSpf ? 'badge-chip coral' : 'badge-chip green';
+        spfSpan.textContent = `SPF: ${diaryContext.spfCompliance}`;
+        badgesContainer.appendChild(spfSpan);
+
+        // Sun Exposure Badge
+        const sunSpan = document.createElement('span');
+        const isProSun = diaryContext.sunExposure.includes('Prolonged') || diaryContext.sunExposure.includes('PROLONGED');
+        sunSpan.className = isProSun ? 'badge-chip amber' : 'badge-chip cyan';
+        sunSpan.textContent = `Sun: ${diaryContext.sunExposure}`;
+        badgesContainer.appendChild(sunSpan);
+
+        // Barrier Sensations Badge
+        const bSpan = document.createElement('span');
+        const symList = Array.isArray(diaryContext.barrierSymptoms) ? diaryContext.barrierSymptoms : [diaryContext.barrierSymptoms];
+        const hasSting = symList.some(s => s && (s.includes('Stinging') || s.includes('STINGING') || s.includes('Peeling')));
+        bSpan.className = hasSting ? 'badge-chip coral' : 'badge-chip green';
+        bSpan.textContent = `Barrier: ${hasSting ? 'Stinging Logged' : 'Calm'}`;
+        badgesContainer.appendChild(bSpan);
+
+        // Sleep Duration Badge
+        const slSpan = document.createElement('span');
+        const isLowSleep = diaryContext.sleepDuration.includes('<6');
+        slSpan.className = isLowSleep ? 'badge-chip amber' : 'badge-chip green';
+        slSpan.textContent = `Sleep: ${diaryContext.sleepDuration}`;
+        badgesContainer.appendChild(slSpan);
+      }
+
+      document.getElementById('res-correlation-insight').textContent = isClin ? res.lifestyle_correlation.clinical_insight : res.lifestyle_correlation.plain_insight;
+      document.getElementById('res-regimen-title').textContent = res.actionable_protocol.recommended_frequency.toUpperCase();
+      document.getElementById('res-regimen-guidance').textContent = res.actionable_protocol.immediate_guidance;
+      document.getElementById('res-regimen-adjustment').textContent = res.actionable_protocol.lifestyle_adjustment;
+
+      document.getElementById('results-modal-sheet').style.display = 'flex';
+    }
+
+    function closeAnalysisResultsModal() {
+      audio.softTap();
+      document.getElementById('results-modal-sheet').style.display = 'none';
+      switchDockTab('home');
+    }
+
+    function runInstantDemoScan() {
+      audio.softTap();
+      scanBuffers.FRONT = generateFaceSvg('front');
+      scanBuffers.LEFT = generateFaceSvg('left');
+      scanBuffers.RIGHT = generateFaceSvg('right');
+      capturedImages.FRONT = scanBuffers.FRONT;
+      capturedImages.LEFT = scanBuffers.LEFT;
+      capturedImages.RIGHT = scanBuffers.RIGHT;
+      scanUploadState.front = scanBuffers.FRONT;
+      scanUploadState.left = scanBuffers.LEFT;
+      scanUploadState.right = scanBuffers.RIGHT;
+      updateCaptureSlotsAndStepperUI();
+      triggerUnifiedAnalysis(scanBuffers, activeCheckInLifestyle);
+    }
+
+    // --- REQUIREMENT 5: INSTANT TEST SIMULATION DEMO ---
+    function runInstantDemoSimulation() {
+      audio.softTap();
+      // 1. Instantly populate today's diary log (Heavy Perspiration + Stinging)
+      diaryState = {
+        workout_level: 'Heavy Perspiration',
+        sun_exposure: '<15m',
+        spf_compliance: 'Applied Once',
+        water_intake: '1-2L',
+        sleep_duration: '6-8 hrs',
+        barrier_symptoms: ['Stinging'],
+        date: new Date().toISOString().split('T')[0]
+      };
+      activeCheckInLifestyle = { ...diaryState };
+      try {
+        localStorage.setItem('samsung_health_diary', JSON.stringify(diaryState));
+        localStorage.setItem('latest_diary_entry', JSON.stringify(diaryState));
+      } catch(e) {}
+      renderDiarySelections();
+      updateScanContextSummary();
+
+      // 2. Preload 3 profile photos (Front, Left, Right)
+      scanBuffers.FRONT = generateFaceSvg('front');
+      scanBuffers.LEFT = generateFaceSvg('left');
+      scanBuffers.RIGHT = generateFaceSvg('right');
+      capturedImages.FRONT = scanBuffers.FRONT;
+      capturedImages.LEFT = scanBuffers.LEFT;
+      capturedImages.RIGHT = scanBuffers.RIGHT;
+      scanUploadState.front = scanBuffers.FRONT;
+      scanUploadState.left = scanBuffers.LEFT;
+      scanUploadState.right = scanBuffers.RIGHT;
+      activeAngleIndex = 2;
+      currentStepIndex = 2;
+      updateCaptureSlotsAndStepperUI();
+
+      showToast('Simulation Demo Loaded! Correlating Heavy Perspiration + Stinging...');
+      // 3. Trigger unified analysis landing directly on Diagnostic Results
+      setTimeout(() => {
+        triggerUnifiedAnalysis(scanBuffers, activeCheckInLifestyle);
+      }, 300);
+    }
+
+    // --- REQUIREMENT: CONTEXTUAL TAB INFO MODAL (i) ---
+    const TAB_INFO_CONTENT = {
+      DASHBOARD: {
+        title: "About Home Dashboard",
+        purpose: "Your daily command center for tracking the 84-day (12-week) skin turnover cycle.",
+        sectionTitle: "Key Features",
+        features: [
+          {
+            title: "Activity Rings",
+            description: "The outer green ring tracks your daily BHA routine, the cyan ring tracks your lifestyle balance, and the inner coral ring measures overall progress toward your 12-week turnover milestone."
+          },
+          {
+            title: "60-Second Lather Timer",
+            description: "Tap 'Start PM Wash' to launch the contact timer. Keeping salicylic acid on the skin for 45–60 seconds lets the active acid penetrate oily pores before rinsing."
+          },
+          {
+            title: "Latest Scan Summary",
+            description: "Displays your most recent visual metrics and barrier status at a glance."
+          }
+        ]
+      },
+      'CHECK-IN': {
+        title: "About the 2-Step Check-In",
+        purpose: "Captures your daily habits and visual facial data so the AI can evaluate your true progress.",
+        sectionTitle: "How It Works",
+        features: [
+          {
+            title: "Step 1 (Daily Diary)",
+            description: "Takes 20 seconds to log sweat/exercise, sun exposure, sunscreen use, and barrier stinging."
+          },
+          {
+            title: "Step 2 (3-Profile Camera)",
+            description: "Snaps Front, Left 45°, and Right 45° profile shots under consistent lighting."
+          },
+          {
+            title: "AI Correlation",
+            description: "The system pairs your photos with your diary logs to show if new bumps are an expected active purge or lifestyle-related irritation (not a medical diagnosis)."
+          }
+        ]
+      },
+      SCIENCE: {
+        title: "About the Science Lab",
+        purpose: "Formulation transparency and biological education for Be Bodywise 2% Salicylic Acid Face Wash.",
+        sectionTitle: "Key Topics",
+        features: [
+          {
+            title: "Sensory & Aroma Profile",
+            description: "Explains why the wash has a clinical/medicinal smell (zero added synthetic perfume to protect vulnerable skin barriers)."
+          },
+          {
+            title: "Purging vs. Irritation",
+            description: "Helps you distinguish between deep pores clearing out during weeks 1–3 versus an allergic reaction."
+          },
+          {
+            title: "Active Ingredients",
+            description: "Clinical breakdowns of 2% Salicylic Acid (BHA), Allantoin, and Panthenol."
+          }
+        ]
+      },
+      DIARY: {
+        title: "About Lifestyle History",
+        purpose: "Review your historical daily inputs and habit correlations over time.",
+        sectionTitle: "Key Topics",
+        features: [
+          {
+            title: "",
+            description: "View logged exercise, water intake, UV exposure, and barrier comfort."
+          },
+          {
+            title: "",
+            description: "See emerging patterns linking lifestyle factors (like heavy post-workout sweat) to facial clarity."
+          }
+        ]
+      }
+    };
+
+    function resolveTabInfoKey(tab) {
+      if (!tab) return 'DASHBOARD';
+      const t = tab.toString().toLowerCase();
+      if (t === 'home' || t === 'dashboard') return 'DASHBOARD';
+      if (t === 'scan' || t === 'check-in' || t === 'camera') return 'CHECK-IN';
+      if (t === 'science') return 'SCIENCE';
+      if (t === 'diary') return 'DIARY';
+      return 'DASHBOARD';
+    }
+
+    function openTabInfoModal() {
+      audio.softTap();
+      const tabKey = resolveTabInfoKey(currentTab);
+      const data = TAB_INFO_CONTENT[tabKey] || TAB_INFO_CONTENT.DASHBOARD;
+
+      const titleEl = document.getElementById('info-sheet-title');
+      const purposeEl = document.getElementById('info-sheet-purpose');
+      const sectionHeadingEl = document.getElementById('info-sheet-section-heading');
+      const featuresContainer = document.getElementById('info-sheet-features-list');
+
+      if (titleEl) titleEl.textContent = data.title;
+      if (purposeEl) purposeEl.textContent = data.purpose;
+      if (sectionHeadingEl) sectionHeadingEl.textContent = data.sectionTitle.toUpperCase();
+
+      if (featuresContainer) {
+        featuresContainer.innerHTML = data.features.map(f => `
+          <div class="info-feature-item">
+            <div class="info-feature-dot"></div>
+            <div class="info-feature-text">
+              ${f.title ? `<strong>${f.title}:</strong> ` : ''}${f.description}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      const modal = document.getElementById('info-modal-sheet');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeTabInfoModal() {
+      audio.softTap();
+      const modal = document.getElementById('info-modal-sheet');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function handleInfoBackdropClick(e) {
+      if (e.target.id === 'info-modal-sheet') {
+        closeTabInfoModal();
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeTabInfoModal();
+      }
+    });
+
+    // --- Daily Skin Diary Module (Under 20 Seconds Logger) ---
+    function setDiaryValue(param, val) {
+      audio.softTap();
+      diaryState[param] = val;
+      renderDiarySelections();
+    }
+
+    function toggleBarrierChip(symp) {
+      audio.softTap();
+      if (symp === 'Calm') {
+        diaryState.barrier_symptoms = ['Calm'];
+      } else {
+        let cur = (diaryState.barrier_symptoms || []).filter(s => s !== 'Calm');
+        if (cur.includes(symp)) cur = cur.filter(s => s !== symp);
+        else cur.push(symp);
+        diaryState.barrier_symptoms = cur.length > 0 ? cur : ['Calm'];
+      }
+      renderDiarySelections();
+    }
+
+    function renderDiarySelections() {
+      // 1. Workout / Sweat
+      ['none', 'mod', 'heavy'].forEach(k => {
+        const map = { none: 'None', mod: 'Moderate', heavy: 'Heavy Perspiration' };
+        const btn = document.getElementById(`btn-work-${k}`);
+        if (btn) btn.classList.toggle('active', diaryState.workout_level === map[k]);
+      });
+
+      // 2. Sun / UV Exposure
+      ['min', 'mod', 'pro'].forEach(k => {
+        const map = { min: '<15m', mod: '15-60m', pro: 'Prolonged UV' };
+        const btn = document.getElementById(`btn-sun-${k}`);
+        if (btn) btn.classList.toggle('active', diaryState.sun_exposure === map[k]);
+      });
+
+      // 3. SPF Routine
+      ['none', 'once', 'reapply'].forEach(k => {
+        const map = { none: 'No SPF', once: 'Applied Once', reapply: 'Reapplied 2x+' };
+        const btn = document.getElementById(`btn-spf-${k}`);
+        if (btn) btn.classList.toggle('active', diaryState.spf_compliance === map[k]);
+      });
+
+      // 4. Water Hydration
+      ['low', 'med', 'high'].forEach(k => {
+        const map = { low: '<1L', med: '1-2L', high: '2L+' };
+        const btn = document.getElementById(`btn-h2o-${k}`);
+        if (btn) btn.classList.toggle('active', diaryState.water_intake === map[k]);
+      });
+
+      // 5. Sleep
+      ['low', 'norm', 'high'].forEach(k => {
+        const map = { low: '<6 hrs', norm: '6-8 hrs', high: '8+ hrs' };
+        const btn = document.getElementById(`btn-sleep-${k}`);
+        if (btn) btn.classList.toggle('active', diaryState.sleep_duration === map[k]);
+      });
+
+      // 6. Barrier Symptoms
+      const syms = diaryState.barrier_symptoms || [];
+      const chipMap = {
+        'Calm': 'chip-barr-calm',
+        'Tightness': 'chip-barr-tight',
+        'Stinging': 'chip-barr-sting',
+        'Peeling': 'chip-barr-peel'
+      };
+      Object.keys(chipMap).forEach(key => {
+        const chip = document.getElementById(chipMap[key]);
+        if (chip) chip.classList.toggle('active', syms.includes(key));
+      });
+    }
+
+    function saveAndSyncDiary() {
+      confirmDiaryAndProceedToCamera();
+    }
+
+    // --- AI Multimodal Correlation Engine ---
+    function correlateDiaryWithDiagnostics() {
+      const context = getEffectiveDiaryContext();
+      const diag = generateDeterministicAnalysis(context);
+      applyAnalysisResultsToUI(diag, context);
+    }
+
+    // --- Science Lab Accordion & Active Cocktail Matrix ---
+    function toggleAccordion(id) {
+      audio.softTap();
+      const body = document.getElementById(`${id}-body`);
+      const chev = document.getElementById(`${id}-chev`);
+      const isExpanded = body.style.display === 'block';
+      body.style.display = isExpanded ? 'none' : 'block';
+      chev.classList.toggle('expanded', !isExpanded);
+    }
+
+    function setConflictActive(activeKey) {
+      audio.softTap();
+      const btnBp = document.getElementById('btn-clash-bp');
+      const btnRet = document.getElementById('btn-clash-ret');
+      const box = document.getElementById('clash-explanation-box');
+
+      btnBp.classList.toggle('active', activeKey === 'BP');
+      btnRet.classList.toggle('active', activeKey === 'RET');
+
+      if (activeKey === 'BP') {
+        box.innerHTML = `<strong>Benzoyl Peroxide (BPO):</strong> Co-application of 2% Salicylic Acid with leave-on BPO in the same routine induces excessive epidermal lipid depletion and cumulative irritation. <em>Protocol:</em> Use BPO in the morning (with SPF) and 2% Salicylic Acid wash at night, or alternate evenings.`;
+      } else {
+        box.innerHTML = `<strong>Topical Retinoids (Adapalene / Tretinoin):</strong> Combining leave-on retinoids with active BHA cleansing on the same night elevates transepidermal water loss (TEWL) during initial acclimation. <em>Protocol:</em> Wait 20 minutes after 2% BHA wash before applying low-dose retinoid, or buffer with a ceramide moisturizer.`;
+      }
+    }
+
+    // --- Capsule Notification Toast ---
+    let toastTimeout = null;
+    function showToast(msg) {
+      const toast = document.getElementById('oneui-toast');
+      document.getElementById('toast-text').textContent = msg;
+      toast.classList.add('show');
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>

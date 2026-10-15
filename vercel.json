@@ -1,7 +1,7 @@
 {
-  "version": 2,
+  "cleanUrls": true,
   "rewrites": [
-    { "source": "/clearjourney", "destination": "/index.html" },
-    { "source": "/clearjourney/index.html", "destination": "/index.html" }
+    { "source": "/clearjourney", "destination": "/clearjourney/index.html" },
+    { "source": "/api/(.*)", "destination": "/api/$1" }
   ]
 }
