@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/clearjourney", "destination": "/index.html" },
+    { "source": "/clearjourney/index.html", "destination": "/index.html" }
+  ]
+}

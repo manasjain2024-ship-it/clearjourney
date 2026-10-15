@@ -1,0 +1,21 @@
+{
+  "short_name": "ClearJourney",
+  "name": "ClearJourney by Be Bodywise (2% Salicylic Acid Acne Tracker)",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#FBFBF9",
+  "theme_color": "#2E5A44",
+  "display": "standalone",
+  "orientation": "portrait"
+}
